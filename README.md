@@ -5,7 +5,7 @@ Official Sovendus Voucher Network & Checkout Benefits Plugin for Wordpress WooCo
 coming soon...
 ## Manual Installation on Wordpress
 
-1. Download the latest version [from here](https://raw.githubusercontent.com/Sovendus-GmbH/Sovendus-Wordpress-WooCommerce-Voucher-Network-and-Checkout-Benefits-Plugin/main/releases/sovendus-shopware-voucher-network-latest.zip)
+1. Download the latest version [from here](https://raw.githubusercontent.com/Sovendus-GmbH/Sovendus-Wordpress-WooCommerce-Voucher-Network-and-Checkout-Benefits-Plugin/main/releases/woocommerce-sovendus-latest.zip)
 2. Go to myshop.com/wp-admin/plugin-install.php
 3. On the top left, click on "Upload Plugin" and select the downloaded plugin zip file.
 4. Once it's installed  click on "Activate Plugin"

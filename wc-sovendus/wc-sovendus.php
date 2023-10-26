@@ -10,7 +10,7 @@
  * Plugin Name:       Sovendus Voucher Network & Checkout Benefits for WooCommerce
  * Plugin URI:        https://online.sovendus.com/produkte/sovendus-voucher-network/
  * Description:       Official Sovendus Voucher Network & Checkout Benefits Plugin for Wordpress WooCommerce
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Sovendus - Marcus Brandstaetter
  * Author URI:        https://online.sovendus.com/kontakt/kontakt-firmenkunden/
  * License:           GPL-3.0
@@ -24,9 +24,9 @@
 // Exit if accessed directly
 defined('ABSPATH') || die('WordPress Error! Opening plugin file directly');
 
-define('WOOCOMMERCE_THANKS_REDIRECT_PLUGIN_PATH', plugins_url(__FILE__));
-define('WOOCOMMERCE_THANKS_REDIRECT_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
-define('WOOCOMMERCE_THANKS_REDIRECT_PLUGIN_VERSION', '1.0.0');
+define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_PATH', plugins_url(__FILE__));
+define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
+define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', '1.1.0');
 
 
 /**
@@ -92,43 +92,347 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 		if ($current_section === 'wcsovendus') {
 			$sovendusSettings = array();
 
-			// Add Title to the Settings
 			$sovendusSettings[] = array(
 				'name' => __('Sovendus Voucher Network & Checkout Benefits', 'wc-sovendus'),
 				'type' => 'title',
 				'desc' => __('Official Sovendus Voucher Network & Checkout Benefits Plugin for WooCommerce', 'wc-sovendus'),
-				'id' => 'enabled',
+				'id' => 'title',
 			);
 
-			// Add first checkbox option
-
 			$sovendusSettings[] = array(
-				'name' => __('Enable Sovendus Banner', 'wc-sovendus'),
-				'desc_tip' => __('This will enable the sovendus banner on the post checkout page', 'wc-sovendus'),
-				'id' => 'wc_sovendus_activated',
+				'name' => 'Enable Sovendus Banner for Germany',
+				'desc_tip' => 'This will enable the sovendus banner on the post checkout page',
+				'id' => 'DE_sovendus_activated',
 				'type' => 'checkbox',
 				'css' => 'min-width:300px;',
-				'desc' => __('Enable Sovendus Banner', 'wc-sovendus'),
+				'desc' => 'Enable Sovendus Banner for Germany',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Germany Traffic Source Number',
+				'desc_tip' => 'The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'DE_sovendus_trafficSourceNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic source number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Germany Traffic Medium Number',
+				'desc_tip' => 'The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'DE_sovendus_trafficMediumNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic medium number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Settings for Germany',
+				'type' => 'title',
+				'id' => 'DE_sovendus_title',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Enable Sovendus Banner for Austria',
+				'desc_tip' => 'This will enable the sovendus banner on the post checkout page',
+				'id' => 'AT_sovendus_activated',
+				'type' => 'checkbox',
+				'css' => 'min-width:300px;',
+				'desc' => 'Enable Sovendus Banner for Austria',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Austria Traffic Source Number',
+				'desc_tip' => 'The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'AT_sovendus_trafficSourceNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic source number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Austria Traffic Medium Number',
+				'desc_tip' => 'The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'AT_sovendus_trafficMediumNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic medium number from your integration documentation',
 			);
 
-			// Add second text field option
-
 			$sovendusSettings[] = array(
-				'name' => __('Traffic Source Number', 'wc-sovendus'),
-				'desc_tip' => __('The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.', 'wc-sovendus'),
-				'id' => 'wc_sovendus_trafficSourceNumber',
+				'name' => 'Settings for Austria',
+				'type' => 'title',
+				'id' => 'AT_sovendus_title',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Enable Sovendus Banner for Netherland',
+				'desc_tip' => 'This will enable the sovendus banner on the post checkout page',
+				'id' => 'NL_sovendus_activated',
+				'type' => 'checkbox',
+				'css' => 'min-width:300px;',
+				'desc' => 'Enable Sovendus Banner for Netherland',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Netherland Traffic Source Number',
+				'desc_tip' => 'The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'NL_sovendus_trafficSourceNumber',
 				'type' => 'number',
-				'desc' => __('Enter the traffic source number from your integration documentation', 'wc-sovendus'),
+				'desc' => 'Enter the traffic source number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Netherland Traffic Medium Number',
+				'desc_tip' => 'The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'NL_sovendus_trafficMediumNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic medium number from your integration documentation',
 			);
 
-			// Add third text field option
+			$sovendusSettings[] = array(
+				'name' => 'Settings for Netherland',
+				'type' => 'title',
+				'id' => 'NL_sovendus_title',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Enable Sovendus Banner for Switzerland',
+				'desc_tip' => 'This will enable the sovendus banner on the post checkout page',
+				'id' => 'CH_sovendus_activated',
+				'type' => 'checkbox',
+				'css' => 'min-width:300px;',
+				'desc' => 'Enable Sovendus Banner for Switzerland',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Switzerland Traffic Source Number',
+				'desc_tip' => 'The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'CH_sovendus_trafficSourceNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic source number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Switzerland Traffic Medium Number',
+				'desc_tip' => 'The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'CH_sovendus_trafficMediumNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic medium number from your integration documentation',
+			);
 
 			$sovendusSettings[] = array(
-				'name' => __('Traffic Medium Number', 'wc-sovendus'),
-				'desc_tip' => __('The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.', 'wc-sovendus'),
-				'id' => 'wc_sovendus_trafficMediumNumber',
+				'name' => 'Settings for Switzerland',
+				'type' => 'title',
+				'id' => 'CH_sovendus_title',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Enable Sovendus Banner for France',
+				'desc_tip' => 'This will enable the sovendus banner on the post checkout page',
+				'id' => 'FR_sovendus_activated',
+				'type' => 'checkbox',
+				'css' => 'min-width:300px;',
+				'desc' => 'Enable Sovendus Banner for France',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'France Traffic Source Number',
+				'desc_tip' => 'The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'FR_sovendus_trafficSourceNumber',
 				'type' => 'number',
-				'desc' => __('Enter the traffic medium number from your integration documentation', 'wc-sovendus'),
+				'desc' => 'Enter the traffic source number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'France Traffic Medium Number',
+				'desc_tip' => 'The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'FR_sovendus_trafficMediumNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic medium number from your integration documentation',
+			);
+
+			$sovendusSettings[] = array(
+				'name' => 'Settings for France',
+				'type' => 'title',
+				'id' => 'FR_sovendus_title',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Enable Sovendus Banner for Italy',
+				'desc_tip' => 'This will enable the sovendus banner on the post checkout page',
+				'id' => 'IT_sovendus_activated',
+				'type' => 'checkbox',
+				'css' => 'min-width:300px;',
+				'desc' => 'Enable Sovendus Banner for Italy',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Italy Traffic Source Number',
+				'desc_tip' => 'The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'IT_sovendus_trafficSourceNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic source number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Italy Traffic Medium Number',
+				'desc_tip' => 'The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'IT_sovendus_trafficMediumNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic medium number from your integration documentation',
+			);
+
+			$sovendusSettings[] = array(
+				'name' => 'Settings for Italy',
+				'type' => 'title',
+				'id' => 'IT_sovendus_title',
+			);
+
+			$sovendusSettings[] = array(
+				'name' => 'Enable Sovendus Banner for United Kingdom',
+				'desc_tip' => 'This will enable the sovendus banner on the post checkout page',
+				'id' => 'UK_sovendus_activated',
+				'type' => 'checkbox',
+				'css' => 'min-width:300px;',
+				'desc' => 'Enable Sovendus Banner for United Kingdom',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'United Kingdom Traffic Source Number',
+				'desc_tip' => 'The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'UK_sovendus_trafficSourceNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic source number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'United Kingdom Traffic Medium Number',
+				'desc_tip' => 'The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'UK_sovendus_trafficMediumNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic medium number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Settings for United Kingdom',
+				'type' => 'title',
+				'id' => 'UK_sovendus_title',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Enable Sovendus Banner for Denmark',
+				'desc_tip' => 'This will enable the sovendus banner on the post checkout page',
+				'id' => 'DK_sovendus_activated',
+				'type' => 'checkbox',
+				'css' => 'min-width:300px;',
+				'desc' => 'Enable Sovendus Banner for Denmark',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Denmark Traffic Source Number',
+				'desc_tip' => 'The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'DK_sovendus_trafficSourceNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic source number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Denmark Traffic Medium Number',
+				'desc_tip' => 'The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'DK_sovendus_trafficMediumNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic medium number from your integration documentation',
+			);
+
+			$sovendusSettings[] = array(
+				'name' => 'Settings for Denmark',
+				'type' => 'title',
+				'id' => 'DK_sovendus_title',
+			);
+
+			$sovendusSettings[] = array(
+				'name' => 'Enable Sovendus Banner for Sweden',
+				'desc_tip' => 'This will enable the sovendus banner on the post checkout page',
+				'id' => 'SE_sovendus_activated',
+				'type' => 'checkbox',
+				'css' => 'min-width:300px;',
+				'desc' => 'Enable Sovendus Banner for Sweden',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Sweden Traffic Source Number',
+				'desc_tip' => 'The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'SE_sovendus_trafficSourceNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic source number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Sweden Traffic Medium Number',
+				'desc_tip' => 'The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'SE_sovendus_trafficMediumNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic medium number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Settings for Sweden',
+				'type' => 'title',
+				'id' => 'SE_sovendus_title',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Enable Sovendus Banner for Spain',
+				'desc_tip' => 'This will enable the sovendus banner on the post checkout page',
+				'id' => 'ES_sovendus_activated',
+				'type' => 'checkbox',
+				'css' => 'min-width:300px;',
+				'desc' => 'Enable Sovendus Banner for Spain',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Spain Traffic Source Number',
+				'desc_tip' => 'The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'ES_sovendus_trafficSourceNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic source number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Spain Traffic Medium Number',
+				'desc_tip' => 'The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'ES_sovendus_trafficMediumNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic medium number from your integration documentation',
+			);
+
+			$sovendusSettings[] = array(
+				'name' => 'Settings for Spain',
+				'type' => 'title',
+				'id' => 'ES_sovendus_title',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Enable Sovendus Banner for Belgium',
+				'desc_tip' => 'This will enable the sovendus banner on the post checkout page',
+				'id' => 'BE_sovendus_activated',
+				'type' => 'checkbox',
+				'css' => 'min-width:300px;',
+				'desc' => 'Enable Sovendus Banner for Belgium',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Belgium Traffic Source Number',
+				'desc_tip' => 'The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'BE_sovendus_trafficSourceNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic source number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Belgium Traffic Medium Number',
+				'desc_tip' => 'The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'BE_sovendus_trafficMediumNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic medium number from your integration documentation',
+			);
+
+			$sovendusSettings[] = array(
+				'name' => 'Settings for Belgium',
+				'type' => 'title',
+				'id' => 'BE_sovendus_title',
+			);
+
+			$sovendusSettings[] = array(
+				'name' => 'Enable Sovendus Banner for Poland',
+				'desc_tip' => 'This will enable the sovendus banner on the post checkout page',
+				'id' => 'PL_sovendus_activated',
+				'type' => 'checkbox',
+				'css' => 'min-width:300px;',
+				'desc' => 'Enable Sovendus Banner for Poland',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Poland Traffic Source Number',
+				'desc_tip' => 'The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'PL_sovendus_trafficSourceNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic source number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Poland Traffic Medium Number',
+				'desc_tip' => 'The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'PL_sovendus_trafficMediumNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic medium number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Settings for Poland',
+				'type' => 'title',
+				'id' => 'PL_sovendus_title',
 			);
 
 			$sovendusSettings[] = array(
@@ -149,16 +453,14 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 
 	function sovendus_thankyou_banner($order_id)
 	{
-		$sovendusActive = get_option('wc_sovendus_activated');
-		$trafficSourceNumber = get_option('wc_sovendus_trafficSourceNumber');
-		$trafficMediumNumber = get_option('wc_sovendus_trafficMediumNumber');
-		if ($sovendusActive == "yes" && $trafficSourceNumber && $trafficMediumNumber) {
-			$order = wc_get_order($order_id);
+		$order = wc_get_order($order_id);
+		$country = $order->get_billing_country();
+		list($sovendusActive, $trafficSourceNumber, $trafficMediumNumber) = getSovendusSettings($country);
+		if ($sovendusActive) {
 			$first_name = $order->get_billing_first_name();
 			$last_name = $order->get_billing_last_name();
 			$city = $order->get_billing_city();
 			$postcode = $order->get_billing_postcode();
-			$country = $order->get_billing_country();
 			list($streetName, $streetNumber) = splitStreetAndStreetNumber($order->get_billing_address_1());
 			$email = $order->get_billing_email();
 			$currency = $order->get_currency();
@@ -168,6 +470,10 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 			$usedCouponCode = $usedCoupons[0];
 			$cartHash = $order->cart_hash;
 			$netValue = $order->get_total() - $order->get_shipping_total() - $order->get_total_tax() + $order->get_shipping_tax();
+			$consumerPhone = $order->get_billing_phone();
+			// Not available
+			// $consumerYearOfBirth = "";
+			// $consumerSalutation = "";
 			echo <<<EOD
 				<div id="sovendus-integration-container"></div>	
 				<script type="text/javascript">
@@ -183,7 +489,6 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 						usedCouponCode: "$usedCouponCode",
 						iframeContainerId: "sovendus-integration-container",
 					});
-					window.sovConsumer = window.sovConsumer || {};
 					window.sovConsumer = {
 						consumerFirstName: "$first_name",
 						consumerLastName: "$last_name",
@@ -193,6 +498,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 						consumerZipcode: "$postcode",
 						consumerCity: "$city",
 						consumerCountry: "$country",
+						consumerPhone: "$consumerPhone",
 					};
 				</script>
 				<script
@@ -202,6 +508,127 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 				>
 				</script>
 				EOD;
+		}
+	}
+
+	function getSovendusSettings(string $countryCode)
+	{
+		switch ($countryCode) {
+			case "DE":
+				$sovendusActive = get_option('DE_sovendus_activated');
+				$trafficSourceNumber = (int) get_option('DE_sovendus_trafficSourceNumber');
+				$trafficMediumNumber = (int) get_option('DE_sovendus_trafficMediumNumber');
+				return array(
+					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+					$trafficSourceNumber,
+					$trafficMediumNumber,
+				);
+			case "AT":
+				$sovendusActive = get_option('AT_sovendus_activated');
+				$trafficSourceNumber = (int) get_option('AT_sovendus_trafficSourceNumber');
+				$trafficMediumNumber = (int) get_option('AT_sovendus_trafficMediumNumber');
+				return array(
+					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+					$trafficSourceNumber,
+					$trafficMediumNumber,
+				);
+			case "NL":
+				$sovendusActive = get_option('NL_sovendus_activated');
+				$trafficSourceNumber = (int) get_option('NL_sovendus_trafficSourceNumber');
+				$trafficMediumNumber = (int) get_option('NL_sovendus_trafficMediumNumber');
+				return array(
+					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+					$trafficSourceNumber,
+					$trafficMediumNumber,
+				);
+			case "CH":
+				$sovendusActive = get_option('CH_sovendus_activated');
+				$trafficSourceNumber = (int) get_option('CH_sovendus_trafficSourceNumber');
+				$trafficMediumNumber = (int) get_option('CH_sovendus_trafficMediumNumber');
+				return array(
+					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+					$trafficSourceNumber,
+					$trafficMediumNumber,
+				);
+			case "FR":
+				$sovendusActive = get_option('FR_sovendus_activated');
+				$trafficSourceNumber = (int) get_option('FR_sovendus_trafficSourceNumber');
+				$trafficMediumNumber = (int) get_option('FR_sovendus_trafficMediumNumber');
+				return array(
+					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+					$trafficSourceNumber,
+					$trafficMediumNumber,
+				);
+			case "IT":
+				$sovendusActive = get_option('IT_sovendus_activated');
+				$trafficSourceNumber = (int) get_option('IT_sovendus_trafficSourceNumber');
+				$trafficMediumNumber = (int) get_option('IT_sovendus_trafficMediumNumber');
+				return array(
+					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+					$trafficSourceNumber,
+					$trafficMediumNumber,
+				);
+			case "UK":
+				$sovendusActive = get_option('UK_sovendus_activated');
+				$trafficSourceNumber = (int) get_option('UK_sovendus_trafficSourceNumber');
+				$trafficMediumNumber = (int) get_option('UK_sovendus_trafficMediumNumber');
+				return array(
+					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+					$trafficSourceNumber,
+					$trafficMediumNumber,
+				);
+			case "DK":
+				$sovendusActive = get_option('DK_sovendus_activated');
+				$trafficSourceNumber = (int) get_option('DK_sovendus_trafficSourceNumber');
+				$trafficMediumNumber = (int) get_option('DK_sovendus_trafficMediumNumber');
+				return array(
+					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+					$trafficSourceNumber,
+					$trafficMediumNumber,
+				);
+			case "SE":
+				$sovendusActive = get_option('SE_sovendus_activated');
+				$trafficSourceNumber = (int) get_option('SE_sovendus_trafficSourceNumber');
+				$trafficMediumNumber = (int) get_option('SE_sovendus_trafficMediumNumber');
+				return array(
+					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+					$trafficSourceNumber,
+					$trafficMediumNumber,
+				);
+			case "ES":
+				$sovendusActive = get_option('ES_sovendus_activated');
+				$trafficSourceNumber = (int) get_option('ES_sovendus_trafficSourceNumber');
+				$trafficMediumNumber = (int) get_option('ES_sovendus_trafficMediumNumber');
+				return array(
+					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+					$trafficSourceNumber,
+					$trafficMediumNumber,
+				);
+			case "BE":
+				$sovendusActive = get_option('BE_sovendus_activated');
+				$trafficSourceNumber = (int) get_option('BE_sovendus_trafficSourceNumber');
+				$trafficMediumNumber = (int) get_option('BE_sovendus_trafficMediumNumber');
+				return array(
+					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+					$trafficSourceNumber,
+					$trafficMediumNumber,
+				);
+			case "PL":
+				$sovendusActive = get_option('PL_sovendus_activated');
+				$trafficSourceNumber = (int) get_option('PL_sovendus_trafficSourceNumber');
+				$trafficMediumNumber = (int) get_option('PL_sovendus_trafficMediumNumber');
+				return array(
+					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+					$trafficSourceNumber,
+					$trafficMediumNumber,
+				);
+
+			default:
+				return array(
+					false,
+					0,
+					0,
+				);
 		}
 	}
 
@@ -222,13 +649,13 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 function wc_sovendus_install_admin_notice()
 {
 	echo '<div class="notice notice-error">';
-	echo '<p>' . wp_kses_post(__('Sovendus Thank You Page for WooCommerce requires active WooCommerce Installation, please install and activate WooCommerce plugin!', 'wc-sovendus')) . '</p>';
+	echo '<p>' . wp_kses_post(__('Sovendus Voucher Network & Checkout Benefits for WooCommerce requires active WooCommerce Installation, please install and activate WooCommerce plugin!', 'wc-sovendus')) . '</p>';
 	echo '</div>';
 }
 
 function wc_sovendus_multisite_admin_notice()
 {
 	echo '<div class="notice notice-error">';
-	echo '<p>' . wp_kses_post(__('Sovendus Thank You Page for WooCommerce is not designed for Multisite, please contact us for a custom integration', 'wc-sovendus')) . '</p>';
+	echo '<p>' . wp_kses_post(__('Sovendus Voucher Network & Checkout Benefits for WooCommerce is not designed for Multisite, please contact us for a custom integration', 'wc-sovendus')) . '</p>';
 	echo '</div>';
 }

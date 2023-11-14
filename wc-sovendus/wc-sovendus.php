@@ -10,7 +10,7 @@
  * Plugin Name:       Sovendus Voucher Network & Checkout Benefits for WooCommerce
  * Plugin URI:        https://online.sovendus.com/produkte/sovendus-voucher-network/
  * Description:       Official Sovendus Voucher Network & Checkout Benefits Plugin for Wordpress WooCommerce
- * Version:           1.1.0
+ * Version:           1.1.1
  * Author:            Sovendus - Marcus Brandstaetter
  * Author URI:        https://online.sovendus.com/kontakt/kontakt-firmenkunden/
  * License:           GPL-3.0
@@ -42,6 +42,11 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 } else {
 	add_action('init', 'wc_sovendus_load_textdomain');
 
+	add_action( 'before_woocommerce_init', function() {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	} );
 	/**
 	 * Load plugin textdomain.
 	 */

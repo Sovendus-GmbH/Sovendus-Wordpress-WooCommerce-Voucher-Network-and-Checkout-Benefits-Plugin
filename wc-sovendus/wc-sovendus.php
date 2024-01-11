@@ -10,7 +10,7 @@
  * Plugin Name:       Sovendus Voucher Network & Checkout Benefits for WooCommerce
  * Plugin URI:        https://online.sovendus.com/produkte/sovendus-voucher-network/
  * Description:       Official Sovendus Voucher Network & Checkout Benefits Plugin for Wordpress WooCommerce
- * Version:           1.1.2
+ * Version:           1.1.3
  * Author:            Sovendus - Marcus Brandstaetter
  * Author URI:        https://online.sovendus.com/kontakt/kontakt-firmenkunden/
  * License:           GPL-3.0
@@ -270,6 +270,34 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 				'name' => 'Settings for Italy',
 				'type' => 'title',
 				'id' => 'IT_sovendus_title',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Enable Sovendus Banner for Ireland',
+				'desc_tip' => 'This will enable the sovendus banner on the post checkout page',
+				'id' => 'IE_sovendus_activated',
+				'type' => 'checkbox',
+				'css' => 'min-width:300px;',
+				'desc' => 'Enable Sovendus Banner for Ireland',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Ireland Traffic Source Number',
+				'desc_tip' => 'The traffic source number is used to assign your store in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'IE_sovendus_trafficSourceNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic source number from your integration documentation',
+			);
+			$sovendusSettings[] = array(
+				'name' => 'Ireland Traffic Medium Number',
+				'desc_tip' => 'The traffic medium number is used to assign your integration in the Sovendus system. You can find it in your integration documentation.',
+				'id' => 'IE_sovendus_trafficMediumNumber',
+				'type' => 'number',
+				'desc' => 'Enter the traffic medium number from your integration documentation',
+			);
+
+			$sovendusSettings[] = array(
+				'name' => 'Settings for Ireland',
+				'type' => 'title',
+				'id' => 'IE_sovendus_title',
 			);
 
 			$sovendusSettings[] = array(
@@ -568,6 +596,15 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 				$sovendusActive = get_option('IT_sovendus_activated');
 				$trafficSourceNumber = (int) get_option('IT_sovendus_trafficSourceNumber');
 				$trafficMediumNumber = (int) get_option('IT_sovendus_trafficMediumNumber');
+				return array(
+					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+					$trafficSourceNumber,
+					$trafficMediumNumber,
+				);
+			case "IE":
+				$sovendusActive = get_option('IE_sovendus_activated');
+				$trafficSourceNumber = (int) get_option('IE_sovendus_trafficSourceNumber');
+				$trafficMediumNumber = (int) get_option('IE_sovendus_trafficMediumNumber');
 				return array(
 					$sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
 					$trafficSourceNumber,

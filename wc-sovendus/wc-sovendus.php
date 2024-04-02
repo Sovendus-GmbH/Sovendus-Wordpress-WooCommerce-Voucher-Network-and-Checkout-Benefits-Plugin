@@ -10,7 +10,7 @@
  * Plugin Name:       Sovendus Voucher Network & Checkout Benefits for WooCommerce
  * Plugin URI:        https://online.sovendus.com/produkte/sovendus-voucher-network/
  * Description:       Official Sovendus Voucher Network & Checkout Benefits Plugin for Wordpress WooCommerce
- * Version:           1.1.6
+ * Version:           1.1.7
  * Author:            Sovendus - Marcus Brandstaetter
  * Author URI:        https://online.sovendus.com/kontakt/kontakt-firmenkunden/
  * License:           GPL-3.0
@@ -26,7 +26,7 @@ defined('ABSPATH') || die('WordPress Error! Opening plugin file directly');
 
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_PATH', plugins_url(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
-define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', '1.1.6');
+define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', '1.1.7');
 
 
 /**
@@ -583,7 +583,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 						trafficSourceNumber = '$trafficSourceNumber';
 						trafficMediumNumber = '$trafficMediumNumber';
 					}
-					if (isActive){
+					if (isActive && Number(trafficSourceNumber) > 0 && Number(trafficMediumNumber) > 0){
 						window.sovIframes = window.sovIframes || [];
 						window.sovIframes.push({
 							trafficSourceNumber: trafficSourceNumber,
@@ -595,7 +595,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 							orderCurrency: "$currency",
 							usedCouponCode: "$usedCouponCode",
 							iframeContainerId: "sovendus-integration-container",
-							integrationType: "woocommerce-1.1.5"
+							integrationType: "woocommerce-1.1.7"
 						});
 						window.sovConsumer = {
 							consumerFirstName: "$first_name",

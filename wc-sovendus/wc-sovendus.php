@@ -10,7 +10,7 @@
  * Plugin Name:       Sovendus Voucher Network & Checkout Benefits for WooCommerce
  * Plugin URI:        https://online.sovendus.com/produkte/sovendus-voucher-network/
  * Description:       Official Sovendus Voucher Network & Checkout Benefits Plugin for Wordpress WooCommerce
- * Version:           1.1.7
+ * Version:           1.2.0
  * Author:            Sovendus - Marcus Brandstaetter
  * Author URI:        https://online.sovendus.com/kontakt/kontakt-firmenkunden/
  * License:           GPL-3.0
@@ -573,7 +573,8 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 					let isActive = false;
 					let trafficSourceNumber = "";
 					let trafficMediumNumber = "";
-					if ("$country" == "CH" || "$country" == "BE"){
+					const multiLangCountries = ["CH", "BE"]
+					if (multiLangCountries.includes("$country")){
 						const lang = document.documentElement.lang.split("-")[0];
 						isActive = JSON.parse('$sovendusActive')[lang];
 						trafficSourceNumber = JSON.parse('$trafficSourceNumber')[lang];
@@ -584,6 +585,9 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 						trafficMediumNumber = '$trafficMediumNumber';
 					}
 					if (isActive && Number(trafficSourceNumber) > 0 && Number(trafficMediumNumber) > 0){
+						const isSovendusSale =   document.cookie.split("; ").find(function (entry) {
+							return entry.startsWith("isSovendusSale=");
+						});
 						window.sovIframes = window.sovIframes || [];
 						window.sovIframes.push({
 							trafficSourceNumber: trafficSourceNumber,
@@ -595,7 +599,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 							orderCurrency: "$currency",
 							usedCouponCode: "$usedCouponCode",
 							iframeContainerId: "sovendus-integration-container",
-							integrationType: "woocommerce-1.1.7"
+							integrationType: "woocommerce-1.2.0"
 						});
 						window.sovConsumer = {
 							consumerFirstName: "$first_name",
@@ -763,6 +767,23 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 		}
 	}
 }
+
+add_action('wp_print_footer_scripts', 'sovendus_page_landing', 10, 0);
+function sovendus_page_landing(){
+	echo <<<EOD
+		<script>
+			if (['CH', undefined].includes(document.documentElement.lang.split('-')[1]) && window.location.pathname === '/') {
+				var script = document.createElement("script");
+				script.type = "text/javascript";
+				script.async = true;
+				script.src = "https://api.sovendus.com/js/landing.js";
+				document.body.appendChild(script);
+			}
+		</script>
+	EOD;
+}
+
+
 /* Admin notice if WooCommerce is not installed or active */
 
 function wc_sovendus_install_admin_notice()

@@ -26,7 +26,7 @@ defined('ABSPATH') || die('WordPress Error! Opening plugin file directly');
 
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_PATH', plugins_url(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
-define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', '1.2.2');
+define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', '1.2.3');
 
 
 /**
@@ -619,7 +619,6 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 		$order = wc_get_order($order_id);
 		$country = $order->get_billing_country();
 		list($sovendusActive, $trafficSourceNumber, $trafficMediumNumber) = getSovendusSettings($country);
-		// echo var_dump($order);
 		if ($sovendusActive) {
 			$first_name = $order->get_billing_first_name();
 			$last_name = $order->get_billing_last_name();
@@ -670,7 +669,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 							orderCurrency: "$currency",
 							usedCouponCode: "$usedCouponCode",
 							iframeContainerId: "sovendus-integration-container",
-							integrationType: "woocommerce-1.2.2"
+							integrationType: "woocommerce-1.2.3"
 						});
 						window.sovConsumer = {
 							consumerFirstName: "$first_name",

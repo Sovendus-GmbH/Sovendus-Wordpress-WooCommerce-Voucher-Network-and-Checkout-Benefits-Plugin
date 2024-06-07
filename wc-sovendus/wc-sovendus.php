@@ -26,7 +26,7 @@ defined('ABSPATH') || die('WordPress Error! Opening plugin file directly');
 
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_PATH', plugins_url(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
-define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', '1.2.3');
+define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', '1.2.4');
 
 
 /**
@@ -669,7 +669,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 							orderCurrency: "$currency",
 							usedCouponCode: "$usedCouponCode",
 							iframeContainerId: "sovendus-integration-container",
-							integrationType: "woocommerce-1.2.3"
+							integrationType: "woocommerce-1.2.4"
 						});
 						window.sovConsumer = {
 							consumerFirstName: "$first_name",
@@ -852,7 +852,12 @@ function sovendus_page_landing()
 {
 	echo <<<EOD
 		<script>
-			if (['CH', undefined].includes(document.documentElement.lang.split('-')[1]) && window.location.pathname === '/') {
+			var hostName = window.location.hostname.split(".");
+			if (
+				(hostName[hostName.length - 1] === "ch" ||
+					["CH", undefined].includes(document.documentElement.lang.split("-")[1])) &&
+				window.location.pathname === "/"
+			) {
 				var script = document.createElement("script");
 				script.type = "text/javascript";
 				script.async = true;

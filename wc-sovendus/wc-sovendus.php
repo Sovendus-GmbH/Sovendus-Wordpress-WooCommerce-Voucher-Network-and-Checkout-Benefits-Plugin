@@ -10,7 +10,7 @@
  * Plugin Name:       Sovendus Voucher Network & Checkout Benefits for WooCommerce
  * Plugin URI:        https://online.sovendus.com/produkte/sovendus-voucher-network/
  * Description:       Official Sovendus Voucher Network & Checkout Benefits Plugin for Wordpress WooCommerce
- * Version:           1.2.4
+ * Version:           1.2.5
  * Author:            Sovendus - Marcus Brandstaetter
  * Author URI:        https://online.sovendus.com/kontakt/kontakt-firmenkunden/
  * License:           GPL-3.0
@@ -26,7 +26,7 @@ defined('ABSPATH') || die('WordPress Error! Opening plugin file directly');
 
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_PATH', plugins_url(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
-define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', '1.2.4');
+define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', '1.2.5');
 
 
 /**
@@ -669,7 +669,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 							orderCurrency: "$currency",
 							usedCouponCode: "$usedCouponCode",
 							iframeContainerId: "sovendus-integration-container",
-							integrationType: "woocommerce-1.2.4"
+							integrationType: "woocommerce-1.2.5"
 						});
 						window.sovConsumer = {
 							consumerFirstName: "$first_name",
@@ -854,9 +854,8 @@ function sovendus_page_landing()
 		<script>
 			var hostName = window.location.hostname.split(".");
 			if (
-				(hostName[hostName.length - 1] === "ch" ||
-					["CH", undefined].includes(document.documentElement.lang.split("-")[1])) &&
-				window.location.pathname === "/"
+				hostName[hostName.length - 1] === "ch" ||
+				["CH", undefined].includes(document.documentElement.lang.split("-")[1])
 			) {
 				var script = document.createElement("script");
 				script.type = "text/javascript";

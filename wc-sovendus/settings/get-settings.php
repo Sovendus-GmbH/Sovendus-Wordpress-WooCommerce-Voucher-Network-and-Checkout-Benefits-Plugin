@@ -50,7 +50,7 @@ class WC_Sovendus_Helper
         $trafficMediumNumber = (int) get_option(option: "{$countryCode}_sovendus_trafficMediumNumber");
         return [
             $lang => new VoucherNetworkLanguage(
-                enabled: $sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+                isEnabled: $sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
                 trafficSourceNumber: $trafficSourceNumber,
                 trafficMediumNumber: $trafficMediumNumber,
             )
@@ -62,7 +62,7 @@ class WC_Sovendus_Helper
         $languageSettings = [];
         foreach ($langs as $lang) {
             $languageSettings[$lang] = new VoucherNetworkLanguage(
-                enabled: get_option(option: "{$lang}_{$countryCode}_sovendus_activated"),
+                isEnabled: get_option(option: "{$lang}_{$countryCode}_sovendus_activated"),
                 trafficSourceNumber: (int) get_option(option: "{$lang}_{$countryCode}_sovendus_trafficSourceNumber"),
                 trafficMediumNumber: (int) get_option(option: "{$lang}_{$countryCode}_sovendus_trafficMediumNumber"),
             );

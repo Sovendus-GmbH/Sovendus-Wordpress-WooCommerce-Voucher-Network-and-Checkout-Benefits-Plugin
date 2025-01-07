@@ -1,10 +1,10 @@
 import { SovendusSettings } from "../sovendus-plugins-commons/admin-frontend/sovendus-app-settings";
 import React from "react";
 import ReactDOM from "react-dom";
-import type { SovendusFormDataType } from "../sovendus-plugins-commons/admin-frontend/sovendus-app-types";
+import { SovendusAppSettings } from "../sovendus-plugins-commons/settings/app-settings";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const currentSettings = sovendusSettings.settings as SovendusFormDataType;
+  const currentSettings = sovendusSettings.settings as SovendusAppSettings;
   const saveUrl = ajaxurl as string;
   const containerId = "sovendus-settings-container";
   const container = document.getElementById(containerId);
@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
   shadowRoot.appendChild(reactRoot);
 
   const handleSettingsUpdate = async (
-    updatedSettings: SovendusFormDataType
-  ): Promise<SovendusFormDataType> => {
+    updatedSettings: SovendusAppSettings
+  ): Promise<SovendusAppSettings> => {
     console.log("Attempting to save settings...");
 
     try {

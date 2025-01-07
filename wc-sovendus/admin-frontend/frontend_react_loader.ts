@@ -18,27 +18,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const handleSettingsUpdate = async (
     updatedSettings: SovendusFormDataType
-  ) => {
-    const response = await fetch(saveUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        action: "save_sovendus_settings",
-        settings: updatedSettings,
-      }),
-    });
-    const data = await response.json();
+  ): Promise<SovendusFormDataType> => {
+    console.log("Attempting to save settings...");
 
-    if (data.success) {
-      alert("Settings saved successfully!");
-      return updatedSettings;
-    } else {
-      alert("Failed to save settings.");
-      return updatedSettings;
+    try {
+      const response = await fetch(saveUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          action: "wc_sovendus_save_settings",
+          settings: updatedSettings,
+        }),
+      });
+
+      console.log("Response status:", response.status);
+      const responseText = await response.text();
+      console.log("Raw response:", responseText);
+
+      const data = JSON.parse(responseText);
+      if (data.success) {
+        console.log("Settings saved successfully");
+        return updatedSettings;
+      }
+
+      throw new Error(data.data || "Unknown server error");
+    } catch (error) {
+      console.error("Save failed:", error);
+      throw error;
     }
   };
+
   ReactDOM.render(
     React.createElement(SovendusSettings, {
       saveSettings: handleSettingsUpdate,

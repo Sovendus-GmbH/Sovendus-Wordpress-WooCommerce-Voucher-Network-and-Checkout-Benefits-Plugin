@@ -33,15 +33,3 @@ function enqueue_sovendus_react_scripts($hook)
         'ajaxurl' => admin_url('admin-ajax.php'),
     ]);
 }
-
-
-function save_sovendus_settings()
-{
-    if (!current_user_can('manage_woocommerce')) {
-        wp_send_json_error('Unauthorized', 403);
-    }
-
-    $settings = json_decode(file_get_contents('php://input'), true);
-    update_option('sovendus_settings', json_decode($settings['settings']));
-    wp_send_json_success();
-}

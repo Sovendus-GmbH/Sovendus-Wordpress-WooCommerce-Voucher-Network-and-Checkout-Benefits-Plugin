@@ -11,8 +11,11 @@ class WC_Sovendus_Helper
         if ($settingsJson) {
             return Sovendus_App_Settings::fromJson($settingsJson);
         } else {
+            $anyCountryEnabled = true; // TODO
             $settings = new Sovendus_App_Settings(
-                voucherNetwork: new VoucherNetwork(),
+                voucherNetwork: new VoucherNetwork(
+                    anyCountryEnabled: $anyCountryEnabled,
+                ),
                 optimize: new Optimize(
                     useGlobalId: true,
                     globalId: null,
@@ -20,6 +23,7 @@ class WC_Sovendus_Helper
                     countrySpecificIds: [],
                 ),
                 checkoutProducts: false,
+                version: Versions::TWO,
             );
             $countries = $countryCode
                 ? [$countryCode => LANGUAGES_BY_COUNTRIES[$countryCode]]
@@ -45,7 +49,7 @@ class WC_Sovendus_Helper
         $trafficSourceNumber = (int) get_option(option: "{$countryCode}_sovendus_trafficSourceNumber");
         $trafficMediumNumber = (int) get_option(option: "{$countryCode}_sovendus_trafficMediumNumber");
         return [
-            $lang => new Language(
+            $lang => new VoucherNetworkLanguage(
                 enabled: $sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
                 trafficSourceNumber: $trafficSourceNumber,
                 trafficMediumNumber: $trafficMediumNumber,
@@ -57,7 +61,7 @@ class WC_Sovendus_Helper
     {
         $languageSettings = [];
         foreach ($langs as $lang) {
-            $languageSettings[$lang] = new Language(
+            $languageSettings[$lang] = new VoucherNetworkLanguage(
                 enabled: get_option(option: "{$lang}_{$countryCode}_sovendus_activated"),
                 trafficSourceNumber: (int) get_option(option: "{$lang}_{$countryCode}_sovendus_trafficSourceNumber"),
                 trafficMediumNumber: (int) get_option(option: "{$lang}_{$countryCode}_sovendus_trafficMediumNumber"),

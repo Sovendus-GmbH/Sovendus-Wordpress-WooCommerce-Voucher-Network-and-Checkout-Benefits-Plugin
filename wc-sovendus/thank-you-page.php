@@ -1,6 +1,6 @@
 <?php
 
-require_once plugin_dir_path(__FILE__) . 'sovendus-plugins-commons/page-scripts/thankyou-page/thankyou-page.php';
+require_once 'sovendus-plugins-commons/page-scripts/thankyou-page/thankyou-page.php';
 
 /**
  * Display Sovendus banner on the thank you page
@@ -10,12 +10,13 @@ function wordpress_sovendus_thankyou_page($order_id)
     $order = wc_get_order($order_id);
     $country = $order->get_billing_country();
     $settings = WC_Sovendus_Helper::get_settings(countryCode: $country);
-
+    // TODO handle session id 
+    $sessionId = ""; // $order->cart_hash; 
     echo sovendus_thankyou_page(
         settings: $settings,
-        pluginName: "woocommerce",
+        pluginName: WC_PLUGIN_NAME,
         pluginVersion: WC_SOVENDUS_VERSION,
-        sessionId: $order->cart_hash,
+        sessionId: $sessionId,
         timestamp: time(),
         orderId: $order->get_order_number(),
         orderValue: $order->get_total() - $order->get_shipping_total() - $order->get_total_tax() + $order->get_shipping_tax(),
@@ -32,7 +33,5 @@ function wordpress_sovendus_thankyou_page($order_id)
         consumerCountry: $country,
         consumerLanguage: null, // TODO: get the language somewhere
         consumerPhone: $order->get_billing_phone(),
-
     );
-
 }

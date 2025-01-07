@@ -1,6 +1,6 @@
 <?php
 
-require_once plugin_dir_path(__FILE__) . 'sovendus-plugins-commons/sovendus-thankyou-page.php';
+require_once plugin_dir_path(__FILE__) . 'sovendus-plugins-commons/page-scripts/landing-page/sovendus-page.php';
 
 
 /**

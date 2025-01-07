@@ -1,6 +1,6 @@
 <?php
 
-require_once plugin_dir_path(__FILE__) . 'sovendus-plugins-commons/sovendus-thankyou-page.php';
+require_once plugin_dir_path(__FILE__) . 'sovendus-plugins-commons/page-scripts/thankyou-page/thankyou-page.php';
 
 /**
  * Display Sovendus banner on the thank you page

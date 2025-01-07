@@ -1,11 +1,11 @@
-import {
-  SovendusSettings,
-  type SovendusSettingsType,
-} from "../sovendus-plugins-commons/admin-frontend/sovendus-app-settings";
+import { SovendusSettings } from "../sovendus-plugins-commons/admin-frontend/sovendus-app-settings";
 import React from "react";
 import ReactDOM from "react-dom";
+import type { SovendusFormDataType } from "../sovendus-plugins-commons/admin-frontend/sovendus-app-types";
 
 document.addEventListener("DOMContentLoaded", () => {
+  const currentSettings = sovendusSettings.settings as SovendusFormDataType;
+  const saveUrl = ajaxurl as string;
   const containerId = "sovendus-settings-container";
   const container = document.getElementById(containerId);
   if (!container) {
@@ -16,8 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const reactRoot = document.createElement("div");
   shadowRoot.appendChild(reactRoot);
 
-  const handleSettingsUpdate = (updatedSettings: SovendusSettingsType) => {
-    fetch(ajaxurl, {
+  const handleSettingsUpdate = async (
+    updatedSettings: SovendusFormDataType
+  ) => {
+    const response = await fetch(saveUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,20 +28,21 @@ document.addEventListener("DOMContentLoaded", () => {
         action: "save_sovendus_settings",
         settings: updatedSettings,
       }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          alert("Settings saved successfully!");
-        } else {
-          alert("Failed to save settings.");
-        }
-      });
+    });
+    const data = await response.json();
+
+    if (data.success) {
+      alert("Settings saved successfully!");
+      return updatedSettings;
+    } else {
+      alert("Failed to save settings.");
+      return updatedSettings;
+    }
   };
   ReactDOM.render(
     React.createElement(SovendusSettings, {
-      handleSettingsUpdate,
-      settings: sovendusSettings.settings,
+      saveSettings: handleSettingsUpdate,
+      currentStoredSettings: currentSettings,
     }),
     reactRoot
   );

@@ -1,7 +1,7 @@
 <?php
 
-require_once plugin_dir_path(file: __FILE__) . '../sovendus-plugins-commons/sovendus-thankyou-page.php';
-require_once plugin_dir_path(file: __FILE__) . '../sovendus-plugins-commons/sovendus-countries.php';
+require_once plugin_dir_path(file: __FILE__) . '../sovendus-plugins-commons/settings/app-settings.php';
+require_once plugin_dir_path(file: __FILE__) . '../sovendus-plugins-commons/settings/sovendus-countries.php';
 
 class WC_Sovendus_Helper
 {

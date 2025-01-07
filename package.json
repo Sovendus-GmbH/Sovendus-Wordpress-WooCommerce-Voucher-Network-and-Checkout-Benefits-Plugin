@@ -1,0 +1,22 @@
+{
+    "name": "sovendus_plugins_commons",
+    "version": "1.0.0",
+    "description": "Sovendus Plugins Commons",
+    "private": true,
+    "scripts": {
+        "setup": "yarn install && cd wc-sovendus/sovendus-plugins-commons && yarn install",
+        "build": "cd wc-sovendus/sovendus-plugins-commons && cd ../.. && yarn copy-build && yarn zip-builds",
+        "copy-build": "mkdir -p dist && rsync -av --exclude 'sovendus-plugins-commons/node_modules' wc-sovendus/ dist/wc-sovendus/",
+        "zip-builds": "zip-build dist -t releases/woocommerce-sovendus-latest.zip",
+        "lint": "eslint **/*.ts --no-ignore --fix"
+    },
+    "dependencies": {
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0"
+    },
+    "devDependencies": {
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "zip-build": "^1.8.0"
+    }
+}

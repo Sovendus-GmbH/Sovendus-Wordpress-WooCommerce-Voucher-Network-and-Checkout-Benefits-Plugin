@@ -6,8 +6,8 @@ class WC_Sovendus_Admin_Menu
     {
         add_submenu_page(
             'woocommerce',
-            __('Sovendus'),
-            __('Sovendus'),
+            __('Sovendus App'),
+            __('Sovendus App'),
             'manage_woocommerce',
             'admin.php?page=wc-settings&tab=products&section=wcsovendus'
         );

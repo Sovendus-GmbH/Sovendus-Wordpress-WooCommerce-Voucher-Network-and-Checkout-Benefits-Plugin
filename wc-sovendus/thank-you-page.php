@@ -31,7 +31,7 @@ function wordpress_sovendus_thankyou_page($order_id)
         consumerZipcode: $order->get_billing_postcode(),
         consumerCity: $order->get_billing_city(),
         consumerCountry: $country,
-        consumerLanguage: null, // TODO: get the language somewhere
+        consumerLanguage: null, // TODO get the language somewhere
         consumerPhone: $order->get_billing_phone(),
     );
 }

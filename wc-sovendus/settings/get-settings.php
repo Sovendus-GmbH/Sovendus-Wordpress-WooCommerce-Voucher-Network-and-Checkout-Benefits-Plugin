@@ -8,6 +8,8 @@ class WC_Sovendus_Helper
     public static function get_settings(string|null $countryCode): Sovendus_App_Settings
     {
         $settingsJson = get_option(option: "sovendus_settings");
+        error_log('[Sovendus Debug] Plugin loaded'. json_encode($settingsJson));
+
         if ($settingsJson) {
             return Sovendus_App_Settings::fromJson($settingsJson);
         } else {

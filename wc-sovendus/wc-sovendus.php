@@ -61,19 +61,13 @@ if (!WC_Sovendus_WooCommerce_Check::is_woocommerce_active()) {
             \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
         }
     });
+    add_action('admin_enqueue_scripts', ['WC_Sovendus_Admin_Menu', 'enqueue_admin_styles']);
     add_action('admin_menu', ['WC_Sovendus_Admin_Menu', 'submenu_entry'], 100);
-    add_filter('woocommerce_get_sections_products', ['WC_Sovendus_Settings', 'add_section']);
-    add_filter('woocommerce_get_settings_products', ['WC_Sovendus_Settings', 'settings'], 10, 2);
-    add_action('init', function () {
-        error_log('[Sovendus Debug] init hook fired');
-        add_action('wp_ajax_wc_sovendus_save_settings', 'save_settings');
-        error_log('[Sovendus Debug] AJAX action registered');
-    });
-    add_action('wp_ajax_wc_sovendus_save_settings', 'save_sovendus_settings');
+    add_action('admin_enqueue_scripts', 'enqueue_sovendus_react_scripts');
+    add_action( 'rest_api_init', 'register_saving_api_endpoint' );
+
     add_action('woocommerce_before_thankyou', 'wordpress_sovendus_thankyou_page', 10, 2);
     add_action('wp_print_footer_scripts', 'wordpress_sovendus_page', 10, 0);
-    add_action('admin_enqueue_scripts', 'enqueue_sovendus_react_scripts');
-
 
 }
 

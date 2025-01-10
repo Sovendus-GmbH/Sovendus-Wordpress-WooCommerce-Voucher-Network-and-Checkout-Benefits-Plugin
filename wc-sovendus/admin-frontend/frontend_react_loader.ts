@@ -5,7 +5,8 @@ import { SovendusAppSettings } from "../sovendus-plugins-commons/settings/app-se
 
 document.addEventListener("DOMContentLoaded", () => {
   const currentSettings = sovendusSettings.settings as SovendusAppSettings;
-  const saveUrl = ajaxurl as string;
+  // const saveUrl = ajaxurl as string;
+  const saveUrl = "/wp-json/sovendus/v1/save-settings"
   const containerId = "sovendus-settings-container";
   const container = document.getElementById(containerId);
   if (!container) {
@@ -26,24 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-WP-Nonce": sovendusSettings.nonce,
         },
-        body: JSON.stringify({
-          action: "wc_sovendus_save_settings",
-          settings: updatedSettings,
-        }),
+        body: JSON.stringify({ settings: updatedSettings }),
       });
 
-      console.log("Response status:", response.status);
-      const responseText = await response.text();
-      console.log("Raw response:", responseText);
-
-      const data = JSON.parse(responseText);
-      if (data.success) {
+      if (response.ok) {
         console.log("Settings saved successfully");
         return updatedSettings;
+      } else {
+        const errorText = await response.text();
+        throw new Error(errorText);
       }
-
-      throw new Error(data.data || "Unknown server error");
     } catch (error) {
       console.error("Save failed:", error);
       throw error;

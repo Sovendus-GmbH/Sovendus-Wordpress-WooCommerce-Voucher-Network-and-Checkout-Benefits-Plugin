@@ -29,7 +29,7 @@
 // Exit if accessed directly
 defined('ABSPATH') || die('WordPress Error! Opening plugin file directly');
 
-define('WC_PLUGIN_NAME', 'woocommerce');
+define(constant_name: 'WC_PLUGIN_NAME', value: 'woocommerce');
 define('WC_SOVENDUS_VERSION', '1.3.0');
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_PATH', plugins_url(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
@@ -64,11 +64,10 @@ if (!WC_Sovendus_WooCommerce_Check::is_woocommerce_active()) {
     add_action('admin_enqueue_scripts', ['WC_Sovendus_Admin_Menu', 'enqueue_admin_styles']);
     add_action('admin_menu', ['WC_Sovendus_Admin_Menu', 'submenu_entry'], 100);
     add_action('admin_enqueue_scripts', 'enqueue_sovendus_react_scripts');
-    add_action( 'rest_api_init', 'register_saving_api_endpoint' );
+    add_action('rest_api_init', 'register_saving_api_endpoint');
 
     add_action('woocommerce_before_thankyou', 'wordpress_sovendus_thankyou_page', 10, 2);
     add_action('wp_print_footer_scripts', 'wordpress_sovendus_page', 10, 0);
-
 }
 
 register_activation_hook(__FILE__, ['WC_Sovendus_Activator', 'activate']);

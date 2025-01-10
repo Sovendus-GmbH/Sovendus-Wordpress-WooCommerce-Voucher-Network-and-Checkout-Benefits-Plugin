@@ -2,6 +2,8 @@
 
 require_once plugin_dir_path(__FILE__) . 'sovendus-plugins-commons/page-scripts/landing-page/sovendus-page.php';
 require_once plugin_dir_path(__FILE__) . 'sovendus-plugins-commons/settings/get-settings-helper.php';
+require_once plugin_dir_path(__FILE__) . 'settings/settings-keys.php';
+
 
 
 /**
@@ -11,7 +13,7 @@ function wordpress_sovendus_page()
 {
     $countryCode = null;
     $languageCode = null;
-    $settings = Get_Settings_Helper::get_settings(countryCode: null, get_option_callback: 'get_option');
+    $settings = Get_Settings_Helper::get_settings(countryCode: null, get_option_callback: 'get_option', settings_keys: SETTINGS_KEYS);
     echo sovendus_landing_page(
         settings: $settings,
         pluginName: WC_PLUGIN_NAME,
@@ -19,5 +21,4 @@ function wordpress_sovendus_page()
         country: $countryCode,
         language: $languageCode
     );
-
 }

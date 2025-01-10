@@ -3,6 +3,7 @@
 require_once plugin_dir_path(__FILE__) . '../sovendus-plugins-commons/settings/get-settings-helper.php';
 
 define(constant_name: 'SETTINGS_KEYS', value: new SettingsKeys(
+    active_value: "yes",
     uses_lower_case: false,
     newSettingsKey: "sovendus_settings",
     active: "{countryCode}_sovendus_activated",

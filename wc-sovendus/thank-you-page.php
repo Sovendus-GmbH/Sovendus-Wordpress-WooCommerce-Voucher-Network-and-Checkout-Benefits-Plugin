@@ -2,7 +2,7 @@
 
 require_once 'sovendus-plugins-commons/page-scripts/thankyou-page/thankyou-page.php';
 require_once 'sovendus-plugins-commons/settings/get-settings-helper.php';
-require_once plugin_dir_path(__FILE__) . 'settings/settings-keys.php';
+require_once 'settings/settings-keys.php';
 require_once 'wc-sovendus.php';
 
 

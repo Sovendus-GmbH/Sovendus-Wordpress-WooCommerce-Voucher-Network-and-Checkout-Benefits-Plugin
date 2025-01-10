@@ -1,6 +1,8 @@
 <?php
 
 require_once 'sovendus-plugins-commons/page-scripts/thankyou-page/thankyou-page.php';
+require_once plugin_dir_path(__FILE__) . 'sovendus-plugins-commons/settings/get-settings-helper.php';
+
 
 /**
  * Display Sovendus banner on the thank you page
@@ -9,7 +11,8 @@ function wordpress_sovendus_thankyou_page($order_id)
 {
     $order = wc_get_order($order_id);
     $country = $order->get_billing_country();
-    $settings = WC_Sovendus_Helper::get_settings(countryCode: $country);
+    $settings = Get_Settings_Helper::get_settings(countryCode: $country, get_option_callback: 'get_option');
+
     // TODO handle session id 
     $sessionId = ""; // $order->cart_hash; 
     echo sovendus_thankyou_page(

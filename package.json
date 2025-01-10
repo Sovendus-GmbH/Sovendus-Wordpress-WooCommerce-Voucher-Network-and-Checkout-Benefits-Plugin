@@ -1,7 +1,7 @@
 {
-    "name": "sovendus_plugins_commons",
+    "name": "sovendus_app_wordpress",
     "version": "1.0.0",
-    "description": "Sovendus Plugins Commons",
+    "description": "Sovendus App Wordpress",
     "private": true,
     "scripts": {
         "setup": "yarn install && cd wc-sovendus/sovendus-plugins-commons && yarn install",

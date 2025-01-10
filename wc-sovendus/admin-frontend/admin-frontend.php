@@ -42,7 +42,7 @@ function enqueue_sovendus_react_scripts($hook)
 
     wp_localize_script('frontend_react_loader', 'sovendusSettings', [
         'settings' => WC_Sovendus_Helper::get_settings(countryCode: null),
-        'ajaxurl' => admin_url('admin-ajax.php'),
+        'ajaxurl' => "/wp-json/sovendus/v1/save-settings",
         'nonce' => wp_create_nonce('wp_rest'),
     ]);
 }

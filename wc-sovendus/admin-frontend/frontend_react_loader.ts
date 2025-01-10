@@ -5,8 +5,10 @@ import { SovendusAppSettings } from "../sovendus-plugins-commons/settings/app-se
 
 document.addEventListener("DOMContentLoaded", () => {
   const currentSettings = sovendusSettings.settings as SovendusAppSettings;
+  // TODO
   // const saveUrl = ajaxurl as string;
-  const saveUrl = "/wp-json/sovendus/v1/save-settings"
+  const saveUrl = "/wp-json/sovendus/v1/save-settings";
+  console.log("Current settings:", currentSettings);
   const containerId = "sovendus-settings-container";
   const container = document.getElementById(containerId);
   if (!container) {

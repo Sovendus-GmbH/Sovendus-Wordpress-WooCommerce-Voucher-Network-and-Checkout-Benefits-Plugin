@@ -9,9 +9,10 @@ class WC_Sovendus_Helper
     {
         $settingsJson = get_option(option: "sovendus_settings");
         error_log('[Sovendus Debug] Plugin loaded'. json_encode($settingsJson));
-
+        
         if ($settingsJson) {
-            return Sovendus_App_Settings::fromJson($settingsJson);
+            $decodedSettings = json_decode($settingsJson, true);
+            return Sovendus_App_Settings::fromJson($decodedSettings);
         } else {
             $anyCountryEnabled = true; // TODO
             $settings = new Sovendus_App_Settings(

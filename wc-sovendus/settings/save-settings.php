@@ -1,22 +1,20 @@
 <?php
 
-
-function register_saving_api_endpoint() {
-    register_rest_route('sovendus/v1', '/save-settings', array(
-        'methods' => 'POST',
-        'callback' => 'save_sovendus_settings',
-        'permission_callback' => '__return_true',
-    ));
-}
-
-
-
-function save_sovendus_settings(WP_REST_Request $request)
+function save_sovendus_settings()
 {
-    $settings = $request->get_param('settings');
-    if (update_option('sovendus_settings', wp_json_encode($settings))) {
-        return new WP_REST_Response('Settings saved successfully', 200);
-    } else {
-        return new WP_REST_Response('Failed to save settings', 500);
+    error_log('save_sovendus_settings called');
+    if (!check_ajax_referer('save_sovendus_settings_nonce', 'security', false)) {
+        error_log('Nonce check failed');
+        wp_send_json_error('Nonce check failed');
+        return;
     }
+
+    $settings = isset($_POST['settings']) ? json_decode(stripslashes($_POST['settings']), true) : array();
+    error_log('Settings: ' . print_r($settings, true));
+
+    $validated_settings = Sovendus_App_Settings::fromJson($settings);
+
+    update_option('sovendus_settings', wp_json_encode($validated_settings));
+
+    wp_send_json_success($settings);
 }

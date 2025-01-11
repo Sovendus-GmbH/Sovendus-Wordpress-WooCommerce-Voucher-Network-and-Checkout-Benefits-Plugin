@@ -26,12 +26,7 @@ function enqueue_sovendus_react_scripts($hook)
     if ($hook !== 'toplevel_page_wc-sovendus') {
         return;
     }
-    // wp_enqueue_style(
-    //     'frontend_react_style',
-    //     plugin_dir_url(__FILE__) . '../dist/style.css',
-    //     array(), // Dependencies, if any
-    //     '1.0.0'
-    // );
+
     wp_enqueue_script(
         'frontend_react_loader',
         plugins_url('../dist/frontend_react_loader.js', __FILE__),
@@ -40,9 +35,12 @@ function enqueue_sovendus_react_scripts($hook)
         true
     );
 
+    $nonce = wp_create_nonce('save_sovendus_settings_nonce');
+    error_log('Generated nonce: ' . $nonce);
+
     wp_localize_script('frontend_react_loader', 'sovendusSettings', [
-        'settings' => get_sovendus_settings(countryCode: null),
-        'ajaxurl' => "/wp-json/sovendus/v1/save-settings",
-        'nonce' => wp_create_nonce('wp_rest'),
+        'settings' => get_sovendus_settings(null),
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => $nonce,
     ]);
 }

@@ -63,8 +63,9 @@ if (!WC_Sovendus_WooCommerce_Check::is_woocommerce_active()) {
     });
     add_action('admin_enqueue_scripts', ['WC_Sovendus_Admin_Menu', 'enqueue_admin_styles']);
     add_action('admin_menu', ['WC_Sovendus_Admin_Menu', 'submenu_entry'], 100);
+
+    add_action('wp_ajax_save_sovendus_settings', 'save_sovendus_settings');
     add_action('admin_enqueue_scripts', 'enqueue_sovendus_react_scripts');
-    add_action('rest_api_init', 'register_saving_api_endpoint');
 
     add_action('woocommerce_before_thankyou', 'wordpress_sovendus_thankyou_page', 10, 2);
     add_action('wp_print_footer_scripts', 'wordpress_sovendus_page', 10, 0);

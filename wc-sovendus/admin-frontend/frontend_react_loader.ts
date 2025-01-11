@@ -3,12 +3,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { SovendusAppSettings } from "../sovendus-plugins-commons/settings/app-settings";
 
-document.addEventListener("DOMContentLoaded", () => {
+function loadSettingsUi(): void {
   const currentSettings = sovendusSettings.settings as SovendusAppSettings;
   const nonce = sovendusSettings.nonce as string;
-  // TODO
-  // const saveUrl = ajaxurl as string;
-  const saveUrl = "/wp-json/sovendus/v1/save-settings";
+  const saveUrl = sovendusSettings.ajaxurl as string;
+  console.log("Save URL:", saveUrl);
   console.log("Current settings:", currentSettings);
   const containerId = "sovendus-settings-container";
   const container = document.getElementById(containerId);
@@ -21,15 +20,24 @@ document.addEventListener("DOMContentLoaded", () => {
     updatedSettings: SovendusAppSettings
   ): Promise<SovendusAppSettings> => {
     console.log("Attempting to save settings...");
+    console.log("Payload:", {
+      action: "save_sovendus_settings",
+      security: nonce,
+      settings: updatedSettings,
+    });
+
+    const formData = new URLSearchParams();
+    formData.append("action", "save_sovendus_settings");
+    formData.append("security", nonce);
+    formData.append("settings", JSON.stringify(updatedSettings));
 
     try {
       const response = await fetch(saveUrl, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "X-WP-Nonce": nonce,
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify({ settings: updatedSettings }),
+        body: formData.toString(),
       });
 
       if (response.ok) {
@@ -52,4 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }),
     container
   );
-});
+}
+
+loadSettingsUi();

@@ -5,6 +5,7 @@ import { SovendusAppSettings } from "../sovendus-plugins-commons/settings/app-se
 
 document.addEventListener("DOMContentLoaded", () => {
   const currentSettings = sovendusSettings.settings as SovendusAppSettings;
+  const nonce = sovendusSettings.nonce as string;
   // TODO
   // const saveUrl = ajaxurl as string;
   const saveUrl = "/wp-json/sovendus/v1/save-settings";
@@ -15,9 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error(`Container with id ${containerId} not found`);
     return;
   }
-  const shadowRoot = container.attachShadow({ mode: "open" });
-  const reactRoot = document.createElement("div");
-  shadowRoot.appendChild(reactRoot);
 
   const handleSettingsUpdate = async (
     updatedSettings: SovendusAppSettings
@@ -29,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-WP-Nonce": sovendusSettings.nonce,
+          "X-WP-Nonce": nonce,
         },
         body: JSON.stringify({ settings: updatedSettings }),
       });
@@ -52,6 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
       saveSettings: handleSettingsUpdate,
       currentStoredSettings: currentSettings,
     }),
-    reactRoot
+    container
   );
 });

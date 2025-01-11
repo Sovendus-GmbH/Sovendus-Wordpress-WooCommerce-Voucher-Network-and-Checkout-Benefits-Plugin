@@ -26,12 +26,12 @@ function enqueue_sovendus_react_scripts($hook)
     if ($hook !== 'toplevel_page_wc-sovendus') {
         return;
     }
-    wp_enqueue_style(
-        'frontend_react_style',
-        plugin_dir_url(__FILE__) . '../dist/style.css',
-        array(), // Dependencies, if any
-        '1.0.0'
-    );
+    // wp_enqueue_style(
+    //     'frontend_react_style',
+    //     plugin_dir_url(__FILE__) . '../dist/style.css',
+    //     array(), // Dependencies, if any
+    //     '1.0.0'
+    // );
     wp_enqueue_script(
         'frontend_react_loader',
         plugins_url('../dist/frontend_react_loader.js', __FILE__),

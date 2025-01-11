@@ -8,7 +8,9 @@ require_once plugin_dir_path(__FILE__) . 'settings-keys.php';
 
 function get_sovendus_settings(string|null $countryCode): Sovendus_App_Settings
 {
-    // update_option('sovendus_settings', null);
-
-    return Get_Settings_Helper::get_settings(countryCode: $countryCode, get_option_callback: 'get_option', settings_keys: SETTINGS_KEYS);
+    return Get_Settings_Helper::get_settings(
+        countryCode: $countryCode,
+        get_option_callback: 'get_option',
+        settings_keys: SETTINGS_KEYS
+    );
 }

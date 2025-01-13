@@ -1,0 +1,31 @@
+{
+    "name": "sovendus_app_wordpress",
+    "version": "2.0.0",
+    "description": "Sovendus App Wordpress",
+    "private": true,
+    "scripts": {
+        "setup": "yarn install && cd wc-sovendus/sovendus-plugins-commons && yarn install",
+        "build:prod": "yarn build && yarn copy-build && yarn zip-builds && rm -rf dist",
+        "build": "cd wc-sovendus/sovendus-plugins-commons && yarn build",
+        "copy-build": "mkdir -p dist && rsync -av --exclude 'sovendus-plugins-commons/node_modules' wc-sovendus/ dist/wc-sovendus/",
+        "zip-builds": "zip-build dist releases -t %NAME%_%VERSION%.%EXT% && zip-build dist releases -t %NAME%_latest.%EXT%",
+        "lint": "eslint **/*.ts --no-ignore --fix"
+    },
+    "dependencies": {
+        "@wordpress/api-fetch": "^7.15.1",
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0"
+    },
+    "devDependencies": {
+        "@types/eslint": "9.6.1",
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "eslint": "8.57.0",
+        "eslint-config-prettier": "9.1.0",
+        "postcss": "^8.4.49",
+        "prettier-eslint": "^16.3.0",
+        "tailwindcss": "^3.4.17",
+        "typescript": "5.7.2",
+        "zip-build": "^1.8.0"
+    }
+}

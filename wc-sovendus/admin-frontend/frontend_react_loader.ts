@@ -7,8 +7,6 @@ function loadSettingsUi(): void {
   const currentSettings = sovendusSettings.settings as SovendusAppSettings;
   const nonce = sovendusSettings.nonce as string;
   const saveUrl = sovendusSettings.ajaxurl as string;
-  console.log("Save URL:", saveUrl);
-  console.log("Current settings:", currentSettings);
   const containerId = "sovendus-settings-container";
   const container = document.getElementById(containerId);
   if (!container) {
@@ -19,13 +17,6 @@ function loadSettingsUi(): void {
   const handleSettingsUpdate = async (
     updatedSettings: SovendusAppSettings
   ): Promise<SovendusAppSettings> => {
-    console.log("Attempting to save settings...");
-    console.log("Payload:", {
-      action: "save_sovendus_settings",
-      security: nonce,
-      settings: updatedSettings,
-    });
-
     const formData = new URLSearchParams();
     formData.append("action", "save_sovendus_settings");
     formData.append("security", nonce);
@@ -41,7 +32,6 @@ function loadSettingsUi(): void {
       });
 
       if (response.ok) {
-        console.log("Settings saved successfully");
         return updatedSettings;
       } else {
         const errorText = await response.text();

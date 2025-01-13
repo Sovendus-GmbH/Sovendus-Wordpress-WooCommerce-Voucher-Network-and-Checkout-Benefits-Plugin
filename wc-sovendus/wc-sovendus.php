@@ -1,10 +1,5 @@
 <?php
 
-// TODO REMove
-// define('WP_DEBUG_LOG', true);
-// define('WP_DEBUG_DISPLAY', false);
-
-
 /**
  *
  * @link    https://online.sovendus.com/en/contact/contact-corporate-customers/#
@@ -12,10 +7,10 @@
  * @package wc_sovendus
  *
  * @wordpress-plugin
- * Plugin Name:       Sovendus App for WooCommerce
+ * Plugin Name:       Sovendus App
  * Plugin URI:        https://online.sovendus.com/produkte/sovendus-voucher-network/
  * Description:       Official Sovendus App for Wordpress WooCommerce
- * Version:           2.0.0
+ * Version:           2.0.1
  * Author:            Sovendus - Marcus Brandstaetter
  * Author URI:        https://online.sovendus.com/en/contact/contact-corporate-customers/#
  * License:           GPL-3.0
@@ -23,14 +18,14 @@
  * Text Domain:       wc-sovendus
  * Requires PHP:      5.6
  * WC requires at least: 5.0
- * WC tested up to: 8.0
+ * WC tested up to: 6.7.1
  */
 
 // Exit if accessed directly
 defined('ABSPATH') || die('WordPress Error! Opening plugin file directly');
 
 define(constant_name: 'WC_PLUGIN_NAME', value: 'woocommerce');
-define('WC_SOVENDUS_VERSION', '2.0.0');
+define('WC_SOVENDUS_VERSION', '2.0.1');
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_PATH', plugins_url(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', WC_SOVENDUS_VERSION);
@@ -68,7 +63,7 @@ if (!WC_Sovendus_WooCommerce_Check::is_woocommerce_active()) {
     add_action('admin_enqueue_scripts', 'enqueue_sovendus_react_scripts');
 
     add_action('woocommerce_before_thankyou', 'wordpress_sovendus_thankyou_page', 10, 2);
-    add_action('wp_print_footer_scripts', 'wordpress_sovendus_page', 10, 0);
+    add_action('wp_enqueue_scripts', 'wordpress_sovendus_page');
 }
 
 register_activation_hook(__FILE__, ['WC_Sovendus_Activator', 'activate']);

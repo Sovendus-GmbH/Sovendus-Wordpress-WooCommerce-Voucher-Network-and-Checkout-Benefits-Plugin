@@ -30,7 +30,7 @@ function enqueue_sovendus_react_scripts($hook)
         'frontend_react_loader',
         plugins_url('../dist/frontend_react_loader.js', __FILE__),
         ['react', 'react-dom'],
-        null,
+        WC_SOVENDUS_VERSION,
         true
     );
     wp_localize_script('frontend_react_loader', 'sovendusSettings', [

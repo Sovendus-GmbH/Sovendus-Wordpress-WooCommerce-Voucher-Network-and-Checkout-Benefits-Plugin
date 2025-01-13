@@ -7,17 +7,17 @@
 
 /**
  *
- * @link    https://online.sovendus.com/kontakt/kontakt-firmenkunden/
+ * @link    https://online.sovendus.com/en/contact/contact-corporate-customers/#
  * @since   1.1
  * @package wc_sovendus
  *
  * @wordpress-plugin
- * Plugin Name:       Sovendus Voucher Network & Checkout Benefits for WooCommerce
+ * Plugin Name:       Sovendus App for WooCommerce
  * Plugin URI:        https://online.sovendus.com/produkte/sovendus-voucher-network/
- * Description:       Official Sovendus Voucher Network & Checkout Benefits Plugin for Wordpress WooCommerce
- * Version:           1.3.0
+ * Description:       Official Sovendus App for Wordpress WooCommerce
+ * Version:           2.0.0
  * Author:            Sovendus - Marcus Brandstaetter
- * Author URI:        https://online.sovendus.com/kontakt/kontakt-firmenkunden/
+ * Author URI:        https://online.sovendus.com/en/contact/contact-corporate-customers/#
  * License:           GPL-3.0
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       wc-sovendus
@@ -30,7 +30,7 @@
 defined('ABSPATH') || die('WordPress Error! Opening plugin file directly');
 
 define(constant_name: 'WC_PLUGIN_NAME', value: 'woocommerce');
-define('WC_SOVENDUS_VERSION', '1.3.0');
+define('WC_SOVENDUS_VERSION', '2.0.0');
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_PATH', plugins_url(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', WC_SOVENDUS_VERSION);

@@ -1,6 +1,6 @@
-# Sovendus Voucher Network & Checkout Benefits Plugin for Wordpress WooCommerce
+# Sovendus App for Wordpress WooCommerce
 
-Official Sovendus Voucher Network & Checkout Benefits Plugin for Wordpress WooCommerce
+Official Sovendus App for Wordpress WooCommerce
 
 ## Install through Wordpress App Store
 

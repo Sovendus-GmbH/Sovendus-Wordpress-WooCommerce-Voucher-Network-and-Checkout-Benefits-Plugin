@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
+
+
 function save_sovendus_settings()
 {
     if (!check_ajax_referer('save_sovendus_settings_nonce', 'security', false)) {

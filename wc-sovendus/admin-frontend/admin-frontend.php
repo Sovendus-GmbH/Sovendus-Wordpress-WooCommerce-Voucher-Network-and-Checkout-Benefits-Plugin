@@ -1,25 +1,8 @@
 <?php
 
+defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
+
 require_once plugin_dir_path(file: __FILE__) . '../settings/get-settings.php';
-
-class WC_Sovendus_Settings
-{
-    public static function add_section($sections)
-    {
-        $sections['wcsovendus'] = __('Sovendus App', 'wc-sovendus');
-        return $sections;
-    }
-
-    public static function settings($settings, $current_section)
-    {
-        if ($current_section === 'wcsovendus') {
-            echo '<div id="sovendus-settings-container"></div>';
-            return [];
-        } else {
-            return $settings;
-        }
-    }
-}
 
 function enqueue_sovendus_react_scripts($hook)
 {
@@ -28,9 +11,10 @@ function enqueue_sovendus_react_scripts($hook)
     }
     wp_enqueue_script(
         'frontend_react_loader',
+        // source is in admin-frontend/frontend_react_loader.ts
         plugins_url('../dist/frontend_react_loader.js', __FILE__),
         ['react', 'react-dom'],
-        WC_SOVENDUS_VERSION,
+        SOVENDUS_VERSION,
         true
     );
     wp_localize_script('frontend_react_loader', 'sovendusSettings', [

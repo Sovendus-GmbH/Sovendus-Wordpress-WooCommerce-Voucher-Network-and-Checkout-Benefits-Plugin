@@ -1,6 +1,9 @@
 <?php
 
-class WC_Sovendus_WooCommerce_Check
+defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
+
+
+class Sovendus_WooCommerce_Check
 {
     public static function is_woocommerce_active()
     {

@@ -1,6 +1,9 @@
 <?php
 
-class WC_Sovendus_Admin_Notices
+defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
+
+
+class Sovendus_Admin_Notices
 {
     public static function install_admin_notice()
     {

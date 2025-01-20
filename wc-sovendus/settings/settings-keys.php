@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
+
+
 require_once plugin_dir_path(__FILE__) . '../sovendus-plugins-commons/settings/get-settings-helper.php';
 
 define(constant_name: 'SETTINGS_KEYS', value: new SettingsKeys(

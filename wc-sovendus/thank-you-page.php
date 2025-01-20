@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
+
 require_once 'sovendus-plugins-commons/page-scripts/thankyou-page/thankyou-page.php';
 require_once 'sovendus-plugins-commons/settings/get-settings-helper.php';
 require_once 'settings/settings-keys.php';
@@ -27,7 +29,7 @@ function wordpress_sovendus_thankyou_page($order_id)
 
     echo "<div id='sovendus-integration-container'></div>";
 
-    wp_register_script('sovendus_thankyou_script', $js_file_url, [], WC_SOVENDUS_VERSION, true);
+    wp_register_script('sovendus_thankyou_script', $js_file_url, [], SOVENDUS_VERSION, true);
     // ------------------------------------------------------------
     // IMPORTANT CHANGES HERE HAVE TO BE REPLICATED IN THE OTHER FILE
     // ------------------------------------------------------------
@@ -35,7 +37,7 @@ function wordpress_sovendus_thankyou_page($order_id)
         "settings" => $settings,
         "sessionId" => $sessionId,
         "iframeContainerId" => "sovendus-integration-container",
-        "integrationType" => getIntegrationType(pluginName: WC_PLUGIN_NAME, pluginVersion: WC_SOVENDUS_VERSION),
+        "integrationType" => getIntegrationType(pluginName: PLUGIN_NAME, pluginVersion: SOVENDUS_VERSION),
         "timestamp" => time(),
         "orderId" => $order->get_order_number(),
         "orderValue" => $order->get_total() - $order->get_shipping_total() - $order->get_total_tax() + $order->get_shipping_tax(),

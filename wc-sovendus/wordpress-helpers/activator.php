@@ -1,6 +1,9 @@
 <?php
 
-class WC_Sovendus_Activator
+defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
+
+
+class Sovendus_Activator
 {
     public static function activate($network_wide)
     {
@@ -22,6 +25,6 @@ class WC_Sovendus_Activator
 
     private static function single_activate()
     {
-        // Activation code here
+        // In case we need to run code on activation
     }
 }

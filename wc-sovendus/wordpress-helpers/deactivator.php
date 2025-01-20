@@ -1,6 +1,9 @@
 <?php
 
-class WC_Sovendus_Deactivator
+defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
+
+
+class Sovendus_Deactivator
 {
     public static function deactivate($network_wide)
     {
@@ -22,6 +25,6 @@ class WC_Sovendus_Deactivator
 
     private static function single_deactivate()
     {
-        // Deactivation code here
+        // In case we need to run code on deactivation
     }
 }

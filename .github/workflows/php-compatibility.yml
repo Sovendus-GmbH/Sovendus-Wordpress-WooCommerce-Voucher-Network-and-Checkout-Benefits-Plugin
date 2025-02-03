@@ -9,6 +9,9 @@ on:
 jobs:
   plugin_checks:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: wc-sovendus
 
     steps:
       - name: Checkout code
@@ -18,41 +21,24 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.0'
-          tools: composer, phpcs, phpstan
+          tools: composer:v2.2
           coverage: none
 
+      - name: Configure Composer
+        run: |
+          composer config --global allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+          composer config --global allow-plugins.composer/installers true
+
       - name: Install dependencies
-        working-directory: wc-sovendus
         run: |
           composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: PHP Compatibility Check
-        working-directory: wc-sovendus
         run: |
-          composer global require "squizlabs/php_codesniffer"
-          composer global require "phpcompatibility/php-compatibility"
-          composer global require "wp-coding-standards/wpcs"
-          PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
-          PHP_COMPATIBILITY_PATH=$(composer global config home)/vendor/phpcompatibility/php-compatibility
-          WPCS_PATH=$(composer global config home)/vendor/wp-coding-standards/wpcs
-          $PHPCS_PATH --config-set installed_paths $PHP_COMPATIBILITY_PATH,$WPCS_PATH
-          $PHPCS_PATH -i
-          $PHPCS_PATH --standard=PHPCompatibility --runtime-set testVersion 7.0- --ignore=vendor/* .
-          $PHPCS_PATH --standard=WordPress --ignore=vendor/* .
+          vendor/bin/phpcs --standard=PHPCompatibility --runtime-set testVersion 7.0- --ignore=vendor/* .
+          vendor/bin/phpcs --standard=WordPress --ignore=vendor/* .
 
-      - name: Run PHPStan
-        working-directory: wc-sovendus
+      - name: Run PHPStan for Static Analysis
+        working-directory: SovendusApp
         run: |
-          vendor/bin/phpstan analyse --level=5 .
-
-      # - name: Build Plugin
-      #   run: |
-      #     yarn setup
-      #     yarn build:prod
-
-      # - name: Upload artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: sovendus-wordpress-plugin
-      #     path: releases/sovendus_app_wordpress_latest.zip
-      #     retention-days: 5
+          vendor/bin/phpstan analyse --memory-limit=2G -c phpstan.neon || exit 1

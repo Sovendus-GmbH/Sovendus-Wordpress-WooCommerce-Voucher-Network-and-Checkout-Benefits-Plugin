@@ -33,12 +33,17 @@ jobs:
         run: |
           composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - name: PHP Compatibility Check
+      - name: Setup PHP_CodeSniffer
         run: |
-          phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility,vendor/wp-coding-standards/wpcs
-          phpcs --standard=phpcs.xml --ignore=vendor/* .
-          phpcs --standard=WordPress --ignore=vendor/* .
+          vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility,vendor/wp-coding-standards/wpcs,vendor/phpcompatibility/phpcompatibility-wp
+          vendor/bin/phpcs -i
 
-      - name: Run PHPStan
+      - name: Run PHP 7.0 Compatibility Check
+        working-directory: SovendusApp
+        run: |
+          PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
+          $PHPCS_PATH --standard=PHPCompatibility --runtime-set testVersion 7.0-7.0 --ignore=vendor/* . || exit 1
+  
+      - name: Run PHP Compatibility Check
         run: |
           vendor/bin/phpstan analyse --memory-limit=2G -c phpstan.neon || exit 1

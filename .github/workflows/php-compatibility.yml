@@ -34,6 +34,13 @@ jobs:
         run: |
           composer install --no-progress --prefer-dist --optimize-autoloader
 
+      - name: Verify WordPress Installation
+        run: |
+          if [ ! -f vendor/johnpbloch/wordpress/wp-load.php ]; then
+            echo "Error: wp-load.php not found in vendor/johnpbloch/wordpress"
+            exit 1
+          fi
+
       - name: Run PHP Compatibility Check
         run: |
           ./vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility,vendor/wp-coding-standards/wpcs,vendor/phpcompatibility/phpcompatibility-wp

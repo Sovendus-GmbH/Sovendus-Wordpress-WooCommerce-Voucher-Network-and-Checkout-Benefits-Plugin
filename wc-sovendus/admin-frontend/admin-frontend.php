@@ -2,7 +2,7 @@
 
 defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
 
-require_once plugin_dir_path(__FILE__) . '../settings/get-settings.php';
+require_once __DIR__ . '/../settings/get-settings.php';
 
 function enqueue_sovendus_react_scripts($hook)
 {

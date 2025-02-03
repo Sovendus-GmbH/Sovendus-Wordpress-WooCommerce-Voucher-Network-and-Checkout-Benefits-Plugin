@@ -2,10 +2,10 @@
 
 defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
 
-require_once 'sovendus-plugins-commons/page-scripts/thankyou-page/thankyou-page.php';
-require_once 'sovendus-plugins-commons/settings/get-settings-helper.php';
-require_once 'settings/settings-keys.php';
-require_once 'wc-sovendus.php';
+require_once __DIR__ . '/sovendus-plugins-commons/page-scripts/thankyou-page/thankyou-page.php';
+require_once __DIR__ . '/sovendus-plugins-commons/settings/get-settings-helper.php';
+require_once __DIR__ . '/settings/settings-keys.php';
+require_once __DIR__ . '/wc-sovendus.php';
 
 /**
  * Display Sovendus banner on the thank you page

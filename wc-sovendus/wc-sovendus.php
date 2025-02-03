@@ -10,7 +10,7 @@
  * Plugin Name:       Sovendus App
  * Plugin URI:        https://online.sovendus.com/produkte/sovendus-voucher-network/
  * Description:       Official Sovendus App for Wordpress WooCommerce
- * Version:           2.0.2
+ * Version:           2.0.3
  * Author:            Sovendus - Marcus Brandstaetter
  * Author URI:        https://online.sovendus.com/en/contact/contact-corporate-customers/#
  * License:           GPL-3.0
@@ -23,23 +23,23 @@
 // Exit if accessed directly
 defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
 
-define(constant_name: 'PLUGIN_NAME', value: 'woocommerce');
-define('SOVENDUS_VERSION', '2.0.2');
+define('PLUGIN_NAME', 'woocommerce');
+define('SOVENDUS_VERSION', '2.0.3');
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_PATH', plugins_url(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', SOVENDUS_VERSION);
 
-require_once 'wordpress-helpers/woocommerce-check.php';
-require_once 'wordpress-helpers/admin-notices.php';
-require_once 'wordpress-helpers/admin-menu.php';
-require_once 'wordpress-helpers/activator.php';
-require_once 'wordpress-helpers/deactivator.php';
-require_once 'settings/get-settings.php';
-require_once 'settings/save-settings.php';
-require_once 'landing-page.php';
-require_once 'thank-you-page.php';
-require_once 'admin-frontend/admin-frontend.php';
-require_once 'sovendus-plugins-commons/helpers/integration-data-helpers.php';
+require_once __DIR__ . '/wordpress-helpers/woocommerce-check.php';
+require_once __DIR__ . '/wordpress-helpers/admin-notices.php';
+require_once __DIR__ . '/wordpress-helpers/admin-menu.php';
+require_once __DIR__ . '/wordpress-helpers/activator.php';
+require_once __DIR__ . '/wordpress-helpers/deactivator.php';
+require_once __DIR__ . '/settings/get-settings.php';
+require_once __DIR__ . '/settings/save-settings.php';
+require_once __DIR__ . '/landing-page.php';
+require_once __DIR__ . '/thank-you-page.php';
+require_once __DIR__ . '/admin-frontend/admin-frontend.php';
+
 
 if (!Sovendus_WooCommerce_Check::is_woocommerce_active()) {
     if (is_multisite()) {
@@ -55,11 +55,10 @@ if (!Sovendus_WooCommerce_Check::is_woocommerce_active()) {
     });
     add_action('admin_enqueue_scripts', ['Sovendus_Admin_Menu', 'enqueue_admin_styles']);
     add_action('admin_menu', ['Sovendus_Admin_Menu', 'submenu_entry'], 100);
-
     add_action('wp_ajax_save_sovendus_settings', 'save_sovendus_settings');
     add_action('admin_enqueue_scripts', 'enqueue_sovendus_react_scripts');
 
-    add_action('woocommerce_before_thankyou', 'wordpress_sovendus_thankyou_page', 10, 2);
+    add_action('woocommerce_before_thankyou', 'wordpress_sovendus_thankyou_page', 10, 1);
     add_action('wp_enqueue_scripts', 'wordpress_sovendus_page');
 }
 

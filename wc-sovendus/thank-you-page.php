@@ -2,10 +2,10 @@
 
 defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
 
-require_once 'sovendus-plugins-commons/page-scripts/thankyou-page/thankyou-page.php';
-require_once 'sovendus-plugins-commons/settings/get-settings-helper.php';
-require_once 'settings/settings-keys.php';
-require_once 'wc-sovendus.php';
+require_once __DIR__ . '/sovendus-plugins-commons/page-scripts/thankyou-page/thankyou-page.php';
+require_once __DIR__ . '/sovendus-plugins-commons/settings/get-settings-helper.php';
+require_once __DIR__ . '/settings/settings-keys.php';
+require_once __DIR__ . '/wc-sovendus.php';
 
 /**
  * Display Sovendus banner on the thank you page
@@ -18,26 +18,27 @@ function wordpress_sovendus_thankyou_page($order_id)
     $sessionId = ""; // $order->cart_hash; 
     // TODO get the language somewhere
     $language = null;
-    $settings = Get_Settings_Helper::get_settings(countryCode: $country, get_option_callback: 'get_option', settings_keys: SETTINGS_KEYS);
+    $settings = Get_Settings_Helper::get_settings($country, 'get_option', SETTINGS_KEYS);
     $consumerStreetAndNumber = $order->get_billing_address_1();
     $consumerStreet = null;
     $consumerStreetNumber = null;
     if ($consumerStreetAndNumber) {
-        [$consumerStreet, $consumerStreetNumber] = splitStreetAndStreetNumber($consumerStreetAndNumber);
+        list($consumerStreet, $consumerStreetNumber) = splitStreetAndStreetNumber($consumerStreetAndNumber);
     }
     $js_file_url = plugins_url('dist/thankyou-page.js', __FILE__);
 
     echo "<div id='sovendus-integration-container'></div>";
 
     wp_register_script('sovendus_thankyou_script', $js_file_url, [], SOVENDUS_VERSION, true);
-    // ------------------------------------------------------------
-    // IMPORTANT CHANGES HERE HAVE TO BE REPLICATED IN THE OTHER FILE
-    // ------------------------------------------------------------
+    /** ------------------------------------------------------------
+     * IMPORTANT CHANGES HERE HAVE TO BE REPLICATED IN THE OTHER FILE
+     * ------------------------------------------------------------ 
+     */
     wp_localize_script('sovendus_thankyou_script', 'sovThankyouConfig', [
         "settings" => $settings,
         "sessionId" => $sessionId,
         "iframeContainerId" => "sovendus-integration-container",
-        "integrationType" => getIntegrationType(pluginName: PLUGIN_NAME, pluginVersion: SOVENDUS_VERSION),
+        "integrationType" => getIntegrationType(PLUGIN_NAME, SOVENDUS_VERSION),
         "timestamp" => time(),
         "orderId" => $order->get_order_number(),
         "orderValue" => $order->get_total() - $order->get_shipping_total() - $order->get_total_tax() + $order->get_shipping_tax(),

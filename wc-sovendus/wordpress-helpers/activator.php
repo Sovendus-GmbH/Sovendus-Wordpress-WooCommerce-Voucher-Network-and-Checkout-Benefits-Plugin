@@ -2,7 +2,6 @@
 
 defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
 
-
 class Sovendus_Activator
 {
     public static function activate($network_wide)
@@ -11,7 +10,7 @@ class Sovendus_Activator
             if ($network_wide) {
                 $sites = get_sites();
                 foreach ($sites as $site) {
-                    switch_to_blog($site->blog_id);
+                    switch_to_blog((int) $site->blog_id);
                     self::single_activate();
                     restore_current_blog();
                 }

@@ -1,0 +1,54 @@
+name: WordPress Plugin CI
+
+on:
+  push:
+    branches: ["main", "dev"]
+  pull_request:
+    branches: ["main", "dev"]
+
+jobs:
+  plugin_checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.0'
+          tools: composer, phpcs, phpstan
+          coverage: none
+
+      - name: Install dependencies
+        run: |
+          composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: PHP Compatibility Check
+        run: |
+          composer global require "squizlabs/php_codesniffer"
+          composer global require "phpcompatibility/php-compatibility"
+          composer global require "wp-coding-standards/wpcs"
+          PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
+          PHP_COMPATIBILITY_PATH=$(composer global config home)/vendor/phpcompatibility/php-compatibility
+          WPCS_PATH=$(composer global config home)/vendor/wp-coding-standards/wpcs
+          $PHPCS_PATH --config-set installed_paths $PHP_COMPATIBILITY_PATH,$WPCS_PATH
+          $PHPCS_PATH -i
+          $PHPCS_PATH --standard=PHPCompatibility --runtime-set testVersion 7.0- --ignore=vendor/* .
+          $PHPCS_PATH --standard=WordPress --ignore=vendor/* .
+
+      - name: Run PHPStan
+        run: |
+          vendor/bin/phpstan analyse --level=5 .
+
+      - name: Build Plugin
+        run: |
+          mkdir build
+          rsync -av --exclude={'.git*','tests','build','composer.*','phpcs.xml','phpunit.xml','*.md'} ./ build/
+          cd build && zip -r ../wc-sovendus.zip .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: wc-sovendus-plugin
+          path: wc-sovendus.zip

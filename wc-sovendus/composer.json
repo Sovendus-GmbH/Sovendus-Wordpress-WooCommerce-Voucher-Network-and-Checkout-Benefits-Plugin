@@ -1,0 +1,33 @@
+{
+    "name": "sovendus/wordpress-woocommerce-plugin",
+    "description": "Official Sovendus App for Wordpress WooCommerce",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Sovendus GmbH",
+            "email": "techsupport@sovendus.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "composer/installers": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "squizlabs/php_codesniffer": "^3.6",
+        "wp-coding-standards/wpcs": "^2.3",
+        "phpcompatibility/phpcompatibility-wp": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "phpcs": "phpcs --standard=WordPress",
+        "phpcbf": "phpcbf --standard=WordPress",
+        "test": "phpunit"
+    }
+}

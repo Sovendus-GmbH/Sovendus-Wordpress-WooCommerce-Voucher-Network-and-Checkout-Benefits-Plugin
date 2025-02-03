@@ -18,7 +18,7 @@ function wordpress_sovendus_thankyou_page($order_id)
     $sessionId = ""; // $order->cart_hash; 
     // TODO get the language somewhere
     $language = null;
-    $settings = Get_Settings_Helper::get_settings(countryCode: $country, get_option_callback: 'get_option', settings_keys: SETTINGS_KEYS);
+    $settings = Get_Settings_Helper::get_settings($country, 'get_option', SETTINGS_KEYS);
     $consumerStreetAndNumber = $order->get_billing_address_1();
     $consumerStreet = null;
     $consumerStreetNumber = null;
@@ -37,7 +37,7 @@ function wordpress_sovendus_thankyou_page($order_id)
         "settings" => $settings,
         "sessionId" => $sessionId,
         "iframeContainerId" => "sovendus-integration-container",
-        "integrationType" => getIntegrationType(pluginName: PLUGIN_NAME, pluginVersion: SOVENDUS_VERSION),
+        "integrationType" => getIntegrationType(PLUGIN_NAME, SOVENDUS_VERSION),
         "timestamp" => time(),
         "orderId" => $order->get_order_number(),
         "orderValue" => $order->get_total() - $order->get_shipping_total() - $order->get_total_tax() + $order->get_shipping_tax(),

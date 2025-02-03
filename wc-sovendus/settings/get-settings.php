@@ -7,12 +7,15 @@ require_once plugin_dir_path(__FILE__) . '../sovendus-plugins-commons/settings/g
 require_once plugin_dir_path(__FILE__) . '../sovendus-plugins-commons/settings/sovendus-countries.php';
 require_once plugin_dir_path(__FILE__) . 'settings-keys.php';
 
-
-function get_sovendus_settings(string|null $countryCode): Sovendus_App_Settings
+/**
+ * @param string|null $countryCode
+ * @return Sovendus_App_Settings
+ */
+function get_sovendus_settings($countryCode)
 {
     return Get_Settings_Helper::get_settings(
-        countryCode: $countryCode,
-        get_option_callback: 'get_option',
-        settings_keys: SETTINGS_KEYS
+        $countryCode,
+        'get_option',
+        SETTINGS_KEYS
     );
 }

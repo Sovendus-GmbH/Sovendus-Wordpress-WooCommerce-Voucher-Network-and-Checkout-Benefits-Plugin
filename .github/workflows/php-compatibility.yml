@@ -21,7 +21,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.0'
-          tools: composer:v2.2
+          tools: composer:v2.2, phpcs
           coverage: none
 
       - name: Configure Composer
@@ -35,10 +35,10 @@ jobs:
 
       - name: PHP Compatibility Check
         run: |
-          vendor/bin/phpcs --standard=PHPCompatibility --runtime-set testVersion 7.0- --ignore=vendor/* .
-          vendor/bin/phpcs --standard=WordPress --ignore=vendor/* .
+          phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility,vendor/wp-coding-standards/wpcs
+          phpcs --standard=phpcs.xml --ignore=vendor/* .
+          phpcs --standard=WordPress --ignore=vendor/* .
 
-      - name: Run PHPStan for Static Analysis
-        working-directory: SovendusApp
+      - name: Run PHPStan
         run: |
           vendor/bin/phpstan analyse --memory-limit=2G -c phpstan.neon || exit 1

@@ -38,6 +38,8 @@ jobs:
         run: |
           if [ ! -f vendor/johnpbloch/wordpress/wp-load.php ]; then
             echo "Error: wp-load.php not found in vendor/johnpbloch/wordpress"
+            echo "Contents of vendor/johnpbloch/wordpress directory:"
+            ls -la vendor/johnpbloch/wordpress
             exit 1
           fi
 

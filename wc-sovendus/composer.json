@@ -20,7 +20,8 @@
         "phpcompatibility/phpcompatibility-wp": "*",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
         "phpstan/phpstan": "^1.8",
-        "szepeviktor/phpstan-wordpress": "^1.0"
+        "szepeviktor/phpstan-wordpress": "^1.0",
+        "johnpbloch/wordpress": "^5.8"
     },
     "config": {
         "allow-plugins": {

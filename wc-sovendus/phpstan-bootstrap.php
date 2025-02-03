@@ -1,5 +1,5 @@
 <?php
-$wordpressPath = __DIR__ . '/vendor/johnpbloch/wordpress/wp-load.php';
+$wordpressPath = __DIR__ . '/vendor/johnpbloch/wordpress-core/wp-load.php';
 if (file_exists($wordpressPath)) {
     require_once $wordpressPath;
 } else {

@@ -1,3 +1,6 @@
+includes:
+  - vendor/szepeviktor/phpstan-wordpress/extension.neon
+  
 parameters:
   level: 5
   treatPhpDocTypesAsCertain: true
@@ -6,9 +9,6 @@ parameters:
 
   bootstrapFiles:
     - phpstan-bootstrap.php
-
-  includes:
-    - vendor/szepeviktor/phpstan-wordpress/extension.neon
 
 
   excludePaths:

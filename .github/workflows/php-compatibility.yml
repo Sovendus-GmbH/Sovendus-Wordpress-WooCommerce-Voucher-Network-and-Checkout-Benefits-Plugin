@@ -28,6 +28,7 @@ jobs:
         run: |
           composer config --global allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
           composer config --global allow-plugins.composer/installers true
+          composer config --global allow-plugins.johnpbloch/wordpress-core-installer true
 
       - name: Install dependencies
         run: |

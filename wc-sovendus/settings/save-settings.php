@@ -6,12 +6,12 @@ function save_sovendus_settings()
 {
     if (!check_ajax_referer('save_sovendus_settings_nonce', 'security', false)) {
         wp_send_json_error('Nonce check failed');
-        return;
+        exit;
     }
 
     if (!current_user_can('manage_options')) {
         wp_send_json_error('Unauthorized user');
-        return;
+        exit;
     }
 
     $settings = isset($_POST['settings']) ? json_decode(sanitize_text_field(wp_unslash($_POST['settings'])), true) : array();

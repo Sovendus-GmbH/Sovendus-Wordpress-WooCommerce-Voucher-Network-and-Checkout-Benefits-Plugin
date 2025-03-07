@@ -4,7 +4,7 @@ const releaseConfig: ReleaseConfig = {
   packages: [
     {
       directory: "./",
-      version: "2.0.3",
+      version: "2.0.2",
       release: true,
       updateDeps: true,
       lintAndBuild: true,
@@ -13,7 +13,7 @@ const releaseConfig: ReleaseConfig = {
         jsVars: [
           // TODO handle the version string in wc-sovendus.php still needs to be done manually
           {
-            filePath: "wordpress-plugin/wc-sovendus.php",
+            filePath: "wc-sovendus/wc-sovendus.php",
             varName: "SOVENDUS_VERSION",
           },
         ],

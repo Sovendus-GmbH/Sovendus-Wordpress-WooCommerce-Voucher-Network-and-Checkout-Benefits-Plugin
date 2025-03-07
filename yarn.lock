@@ -4507,15 +4507,15 @@ sovendus-integration-types@3.3.24:
   resolved "https://registry.yarnpkg.com/sovendus-integration-types/-/sovendus-integration-types-3.3.24.tgz#e858cb587530767e8e43b916407977206467df60"
   integrity sha512-JK0t2Oa7Kqvj9TXw/+STLsnyWOwlJ4NMVQY9hoUkjszgHWyXEjaqF1l+KQ0oyo3UTFk/bGNO/J6WEL8Y/xCk5w==
 
-sovendus-release-tool@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/sovendus-release-tool/-/sovendus-release-tool-1.1.3.tgz#de05bcbc6652a9a80fad619b1a02742c9113ec0a"
-  integrity sha512-Cn1ccuUnGgsqaJ7Np4VMzwJY7CuXdy9eiLTsb/3TyAsbYSPbusmi303FZULpl61KiohimVxc1WBFOAgPh/tSRw==
+sovendus-release-tool@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/sovendus-release-tool/-/sovendus-release-tool-1.1.4.tgz#a69246a553290be03e4b8f633ca13ac003380591"
+  integrity sha512-ojOwB2UW3JJhe3kkR4lscAo/yJOQJUtS7R+2K7z7tgQjwaZet8NNGpa22ocOPqhVHe4DAVnCVuUsV06aM/nHvw==
   dependencies:
     commander "13.1.0"
     inquirer "^12.4.2"
     npm-check-updates "17.1.15"
-    vite "^6.2.0"
+    vite "^6.2.1"
 
 sprintf-js@^1.1.1:
   version "1.1.3"
@@ -4928,17 +4928,6 @@ vite-plugin-dts@4.5.3:
     kolorist "^1.8.0"
     local-pkg "^1.0.0"
     magic-string "^0.30.17"
-
-vite@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-6.2.0.tgz#9dcb543380dab18d8384eb840a76bf30d78633f0"
-  integrity sha512-7dPxoo+WsT/64rDcwoOjk76XHj+TqNTIvHKcuMQ1k4/SeHDaQt5GFAeLYzrimZrMpn/O6DtdI03WUjdxuPM0oQ==
-  dependencies:
-    esbuild "^0.25.0"
-    postcss "^8.5.3"
-    rollup "^4.30.1"
-  optionalDependencies:
-    fsevents "~2.3.3"
 
 vite@^6.2.1:
   version "6.2.1"

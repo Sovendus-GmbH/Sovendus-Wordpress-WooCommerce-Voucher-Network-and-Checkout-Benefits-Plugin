@@ -38,7 +38,7 @@ jobs:
         run: |
           ./vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility,vendor/wp-coding-standards/wpcs,vendor/phpcompatibility/phpcompatibility-wp
           ./vendor/bin/phpcs -i
-          ./vendor/bin/phpcs --standard=PHPCompatibility --runtime-set testVersion 7.0- --ignore=vendor/* .
+          ./vendor/bin/phpcs --standard=PHPCompatibility --runtime-set testVersion 7.0- --ignore=vendor/* --config-set installed_paths vendor/phpcompatibility/php-compatibility,vendor/wp-coding-standards/wpcs,vendor/phpcompatibility/phpcompatibility-wp -p .
 
       - name: Run PHPStan
         run: |

@@ -1,38 +1,51 @@
-name: WordPress Plugin CI
+name: PHP Compatibility & Lint Checks
 
 on:
   push:
-    branches: ["main", "dev"]
+    branches:
+      - main
+      - dev
   pull_request:
-    branches: ["main", "dev"]
+    branches:
+      - main
+      - dev
 
 jobs:
-  plugin_checks:
+  php_checks:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: wc-sovendus
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
-          tools: composer:v2.2
+          php-version: "7.4"
+          tools: composer, phpcs, phpstan
           coverage: none
 
-      - name: Configure Composer
+      - name: Install PHPCompatibility and PHP_CodeSniffer
         run: |
-          composer config --global allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
-          composer config --global allow-plugins.composer/installers true
-          composer config --global allow-plugins.johnpbloch/wordpress-core-installer true
+          composer global require "squizlabs/php_codesniffer"
+          composer global require "phpcompatibility/php-compatibility"
+
+          # Find PHPCS path
+          PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
+
+          # Find PHPCompatibility path
+          PHP_COMPATIBILITY_PATH=$(composer global config home)/vendor/phpcompatibility/php-compatibility
+
+          # Register PHPCompatibility with PHPCS
+          $PHPCS_PATH --config-set installed_paths $PHP_COMPATIBILITY_PATH
+
+          # Verify installation
+          $PHPCS_PATH -i
 
       - name: Install dependencies
-        run: |
-          composer install --no-progress --prefer-dist --optimize-autoloader
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Verify WordPress Installation
         run: |

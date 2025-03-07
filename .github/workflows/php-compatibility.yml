@@ -43,12 +43,13 @@ jobs:
 
       - name: Build Plugin
         run: |
-          mkdir build
-          rsync -av --exclude={'.git*','tests','build','composer.*','phpcs.xml','phpunit.xml','*.md'} ./ build/
-          cd build && zip -r ../wc-sovendus.zip .
+          mkdir -p dist
+          rsync -av --exclude={'.git*','tests','dist','composer.*','phpcs.xml','phpunit.xml','*.md'} ./ dist/
+          cd dist && zip -r ../sovendus-wordpress-plugin.zip .
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: wc-sovendus-plugin
-          path: wc-sovendus.zip
+          name: sovendus-wordpress-plugin
+          path: sovendus-wordpress-plugin.zip
+          retention-days: 5

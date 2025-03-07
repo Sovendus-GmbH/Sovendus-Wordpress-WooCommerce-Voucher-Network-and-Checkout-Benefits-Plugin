@@ -13,6 +13,9 @@ on:
 jobs:
   php_checks:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: wc-sovendus
 
     steps:
       - name: Checkout code

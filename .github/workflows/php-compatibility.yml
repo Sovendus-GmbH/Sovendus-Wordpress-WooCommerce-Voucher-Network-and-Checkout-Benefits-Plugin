@@ -9,6 +9,7 @@ on:
 jobs:
   plugin_checks:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,10 +22,12 @@ jobs:
           coverage: none
 
       - name: Install dependencies
+        working-directory: wc-sovendus
         run: |
           composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: PHP Compatibility Check
+        working-directory: wc-sovendus
         run: |
           composer global require "squizlabs/php_codesniffer"
           composer global require "phpcompatibility/php-compatibility"
@@ -38,18 +41,18 @@ jobs:
           $PHPCS_PATH --standard=WordPress --ignore=vendor/* .
 
       - name: Run PHPStan
+        working-directory: wc-sovendus
         run: |
           vendor/bin/phpstan analyse --level=5 .
 
-      - name: Build Plugin
-        run: |
-          mkdir -p dist
-          rsync -av --exclude={'.git*','tests','dist','composer.*','phpcs.xml','phpunit.xml','*.md'} ./ dist/
-          cd dist && zip -r ../sovendus-wordpress-plugin.zip .
+      # - name: Build Plugin
+      #   run: |
+      #     yarn setup
+      #     yarn build:prod
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: sovendus-wordpress-plugin
-          path: sovendus-wordpress-plugin.zip
-          retention-days: 5
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: sovendus-wordpress-plugin
+      #     path: releases/sovendus_app_wordpress_latest.zip
+      #     retention-days: 5

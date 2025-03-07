@@ -1,4 +1,4 @@
-name: Build and Lint Pipeline
+name: TypeScript Build and Lint Checks
 
 on:
   push:

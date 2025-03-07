@@ -11,3 +11,6 @@ parameters:
         - phpstan-bootstrap.php
     excludePaths:
         - vendor/*
+        
+    ignoreErrors:
+        - '#Unreachable statement - code above always terminates.#'

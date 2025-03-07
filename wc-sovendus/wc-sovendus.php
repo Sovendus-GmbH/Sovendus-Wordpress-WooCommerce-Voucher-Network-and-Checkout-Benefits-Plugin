@@ -29,16 +29,17 @@ define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_PATH', plu
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', SOVENDUS_VERSION);
 
-require_once 'wordpress-helpers/woocommerce-check.php';
-require_once 'wordpress-helpers/admin-notices.php';
-require_once 'wordpress-helpers/admin-menu.php';
-require_once 'wordpress-helpers/activator.php';
-require_once 'wordpress-helpers/deactivator.php';
-require_once 'settings/get-settings.php';
-require_once 'settings/save-settings.php';
-require_once 'landing-page.php';
-require_once 'thank-you-page.php';
-require_once 'admin-frontend/admin-frontend.php';
+require_once __DIR__ . '/wordpress-helpers/woocommerce-check.php';
+require_once __DIR__ . '/wordpress-helpers/admin-notices.php';
+require_once __DIR__ . '/wordpress-helpers/admin-menu.php';
+require_once __DIR__ . '/wordpress-helpers/activator.php';
+require_once __DIR__ . '/wordpress-helpers/deactivator.php';
+require_once __DIR__ . '/settings/get-settings.php';
+require_once __DIR__ . '/settings/save-settings.php';
+require_once __DIR__ . '/landing-page.php';
+require_once __DIR__ . '/thank-you-page.php';
+require_once __DIR__ . '/admin-frontend/admin-frontend.php';
+
 
 if (!Sovendus_WooCommerce_Check::is_woocommerce_active()) {
     if (is_multisite()) {

@@ -1,9 +1,9 @@
 <?php
 defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
 
-require_once 'sovendus-plugins-commons/page-scripts/landing-page/sovendus-page.php';
-require_once 'sovendus-plugins-commons/settings/get-settings-helper.php';
-require_once 'settings/settings-keys.php';
+require_once __DIR__ . '/sovendus-plugins-commons/page-scripts/landing-page/sovendus-page.php';
+require_once __DIR__ . '/sovendus-plugins-commons/settings/get-settings-helper.php';
+require_once __DIR__ . '/settings/settings-keys.php';
 
 /**
  * Add landing page script

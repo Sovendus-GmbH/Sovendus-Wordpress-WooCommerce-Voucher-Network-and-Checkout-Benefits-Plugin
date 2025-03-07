@@ -23,7 +23,7 @@ function wordpress_sovendus_thankyou_page($order_id)
     $consumerStreet = null;
     $consumerStreetNumber = null;
     if ($consumerStreetAndNumber) {
-        [$consumerStreet, $consumerStreetNumber] = splitStreetAndStreetNumber($consumerStreetAndNumber);
+        list($consumerStreet, $consumerStreetNumber) = splitStreetAndStreetNumber($consumerStreetAndNumber);
     }
     $js_file_url = plugins_url('dist/thankyou-page.js', __FILE__);
 

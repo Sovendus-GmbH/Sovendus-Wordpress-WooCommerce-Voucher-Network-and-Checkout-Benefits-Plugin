@@ -1,5 +1,6 @@
 <?php
 
+defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
 
 /**
  * Split street and street number

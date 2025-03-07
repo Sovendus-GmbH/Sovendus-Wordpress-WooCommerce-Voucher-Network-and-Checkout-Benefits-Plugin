@@ -18,7 +18,7 @@ function enqueue_sovendus_react_scripts($hook)
         true
     );
     wp_localize_script('frontend_react_loader', 'sovendusSettings', [
-        'settings' => get_sovendus_settings(null),
+        'settings' => get_sovendus_settings(),
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('save_sovendus_settings_nonce'),
     ]);

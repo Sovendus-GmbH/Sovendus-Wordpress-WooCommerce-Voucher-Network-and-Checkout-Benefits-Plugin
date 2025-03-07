@@ -10,12 +10,12 @@
  * Plugin Name:       Sovendus App
  * Plugin URI:        https://online.sovendus.com/produkte/sovendus-voucher-network/
  * Description:       Official Sovendus App for Wordpress WooCommerce
- * Version:           2.0.3
+ * Version:           2.1.0
  * Author:            Sovendus - Marcus Brandstaetter
  * Author URI:        https://online.sovendus.com/en/contact/contact-corporate-customers/#
  * License:           GPL-3.0
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
- * Requires PHP:      5.6
+ * Requires PHP:      7.0
  * WC requires at least: 5.0
  * WC tested up to: 6.7.1
  */
@@ -24,7 +24,7 @@
 defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
 
 define('PLUGIN_NAME', 'woocommerce');
-define('SOVENDUS_VERSION', '2.0.3');
+define('SOVENDUS_VERSION', '2.1.0');
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_PATH', plugins_url(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', SOVENDUS_VERSION);
@@ -48,6 +48,9 @@ if (!Sovendus_WooCommerce_Check::is_woocommerce_active()) {
         add_action('admin_notices', ['Sovendus_Admin_Notices', 'install_admin_notice']);
     }
 } else {
+    if (is_multisite()) {
+        add_action('network_admin_notices', ['Sovendus_Admin_Notices', 'multisite_beta_admin_notice']);
+    }
     add_action('before_woocommerce_init', function () {
         if (class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
             \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);

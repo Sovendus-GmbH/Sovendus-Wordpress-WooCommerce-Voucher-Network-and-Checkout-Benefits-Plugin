@@ -23,7 +23,6 @@ function save_sovendus_settings()
         return;
     }
 
-    $validated_settings = Sovendus_App_Settings::fromJson($settings);
-    update_option('sovendus_settings', wp_json_encode($validated_settings));
+    update_option('sovendus_settings', wp_json_encode($settings));
     wp_send_json_success($settings);
 }

@@ -57,7 +57,7 @@ if (!Sovendus_WooCommerce_Check::is_woocommerce_active()) {
     add_action('wp_ajax_save_sovendus_settings', 'save_sovendus_settings');
     add_action('admin_enqueue_scripts', 'enqueue_sovendus_react_scripts');
 
-    add_action('woocommerce_before_thankyou', 'wordpress_sovendus_thankyou_page', 10, 2);
+    add_action('woocommerce_before_thankyou', 'wordpress_sovendus_thankyou_page', 10, 1);
     add_action('wp_enqueue_scripts', 'wordpress_sovendus_page');
 }
 

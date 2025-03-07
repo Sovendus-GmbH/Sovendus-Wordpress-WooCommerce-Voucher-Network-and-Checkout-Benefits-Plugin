@@ -30,9 +30,10 @@ function wordpress_sovendus_thankyou_page($order_id)
     echo "<div id='sovendus-integration-container'></div>";
 
     wp_register_script('sovendus_thankyou_script', $js_file_url, [], SOVENDUS_VERSION, true);
-    // ------------------------------------------------------------
-    // IMPORTANT CHANGES HERE HAVE TO BE REPLICATED IN THE OTHER FILE
-    // ------------------------------------------------------------
+    /** ------------------------------------------------------------
+     * IMPORTANT CHANGES HERE HAVE TO BE REPLICATED IN THE OTHER FILE
+     * ------------------------------------------------------------ 
+     */
     wp_localize_script('sovendus_thankyou_script', 'sovThankyouConfig', [
         "settings" => $settings,
         "sessionId" => $sessionId,

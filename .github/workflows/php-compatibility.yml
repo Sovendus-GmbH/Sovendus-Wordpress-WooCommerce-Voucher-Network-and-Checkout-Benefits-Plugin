@@ -41,8 +41,4 @@ jobs:
 
       - name: Run PHPStan
         run: |
-          echo "<?php
-          require_once '/usr/src/wordpress/wp-load.php';
-          
-          }" > phpstan-bootstrap.php
           vendor/bin/phpstan analyse --memory-limit=2G -c phpstan.neon || exit 1

@@ -26,5 +26,11 @@ if (file_exists($wordpressPath)) {
         echo $item . "\n";
     }
 
+    echo "Contents of vendor/johnpbloch/wordpress directory:\n";
+    $wordpressContents = scandir(__DIR__ . '/vendor/johnpbloch/wordpress');
+    foreach ($wordpressContents as $item) {
+        echo $item . "\n";
+    }
+
     exit(1);
 }

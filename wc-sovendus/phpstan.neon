@@ -5,7 +5,7 @@ parameters:
     - .
 
   bootstrapFiles:
-    - vendor/szepeviktor/phpstan-wordpress/bootstrap.php
+    - phpstan-bootstrap.php
 
   excludePaths:
     - vendor/*

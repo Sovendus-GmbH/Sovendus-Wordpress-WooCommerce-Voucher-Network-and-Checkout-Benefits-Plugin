@@ -12,8 +12,8 @@ function wordpress_sovendus_page()
 {
     $country = null;
     $language = null;
-    $settings = Get_Settings_Helper::get_settings(countryCode: null, get_option_callback: 'get_option', settings_keys: SETTINGS_KEYS);
-    $integrationType = getIntegrationType(pluginName: PLUGIN_NAME, pluginVersion: SOVENDUS_VERSION);
+    $settings = Get_Settings_Helper::get_settings(null, 'get_option', SETTINGS_KEYS);
+    $integrationType = getIntegrationType(PLUGIN_NAME, SOVENDUS_VERSION);
 
     $js_file_url = plugins_url('dist/sovendus-page.js', __FILE__);
     wp_register_script('sovendus_page_script', $js_file_url, [], SOVENDUS_VERSION, true);

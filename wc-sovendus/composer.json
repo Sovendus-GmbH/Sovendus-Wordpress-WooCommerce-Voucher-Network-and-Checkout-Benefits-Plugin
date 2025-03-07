@@ -11,9 +11,7 @@
     ],
     "require": {
         "php": ">=7.0",
-        "composer/installers": "^1.0",
-        "johnpbloch/wordpress": "^5.8",
-        "johnpbloch/wordpress-core-installer": "^2.0"
+        "composer/installers": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.5",
@@ -27,8 +25,7 @@
     "config": {
         "allow-plugins": {
             "composer/installers": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "johnpbloch/wordpress-core-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "scripts": {

@@ -4,7 +4,7 @@ const releaseConfig: ReleaseConfig = {
   packages: [
     {
       directory: "./",
-      version: "2.0.2",
+      version: "2.1.0",
       release: true,
       updateDeps: true,
       lintAndBuild: true,

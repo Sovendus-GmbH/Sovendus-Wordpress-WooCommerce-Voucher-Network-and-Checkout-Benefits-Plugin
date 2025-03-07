@@ -1,0 +1,62 @@
+name: PHP Compatibility & Lint Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  create:
+    tags:
+      - "*"
+
+jobs:
+  php_checks:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: wc-sovendus
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+          tools: composer, phpcs, phpstan
+          coverage: none
+
+      - name: Install PHPCompatibility and PHP_CodeSniffer
+        run: |
+          composer global require "squizlabs/php_codesniffer"
+          composer global require "phpcompatibility/php-compatibility"
+
+          # Find PHPCS path
+          PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
+
+          # Find PHPCompatibility path
+          PHP_COMPATIBILITY_PATH=$(composer global config home)/vendor/phpcompatibility/php-compatibility
+
+          # Register PHPCompatibility with PHPCS
+          $PHPCS_PATH --config-set installed_paths $PHP_COMPATIBILITY_PATH
+
+          # Verify installation
+          $PHPCS_PATH -i
+
+      - name: Install dependencies
+        run: composer update --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Run PHP Compatibility Check
+        run: |
+          ./vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility,vendor/wp-coding-standards/wpcs,vendor/phpcompatibility/phpcompatibility-wp
+          ./vendor/bin/phpcs -i
+          ./vendor/bin/phpcs --standard=PHPCompatibility --runtime-set testVersion 7.0- --ignore=vendor/* --config-set installed_paths vendor/phpcompatibility/php-compatibility,vendor/wp-coding-standards/wpcs,vendor/phpcompatibility/phpcompatibility-wp -p .
+
+      - name: Run PHPStan
+        run: |
+          vendor/bin/phpstan analyse --memory-limit=2G -c phpstan.neon || exit 1

@@ -1,0 +1,21 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+    level: 5
+    treatPhpDocTypesAsCertain: true
+    paths:
+        - .
+    bootstrapFiles:
+        - vendor/autoload.php
+        - phpstan-bootstrap.php
+    excludePaths:
+        - vendor/*
+
+    ignoreErrors:
+        - '#Unreachable statement - code above always terminates.#'
+        - '#Function wc_get_order not found.#'
+
+
+
+

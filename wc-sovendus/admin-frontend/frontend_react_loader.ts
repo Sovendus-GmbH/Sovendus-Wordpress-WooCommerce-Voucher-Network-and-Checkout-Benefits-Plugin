@@ -1,21 +1,33 @@
-import { SovendusSettings } from "../sovendus-plugins-commons/admin-frontend/sovendus-app-settings";
 import React from "react";
-import ReactDOM from "react-dom";
-import { SovendusAppSettings } from "../sovendus-plugins-commons/settings/app-settings";
+import { createRoot } from "react-dom/client";
+import { loggerError, loggerInfo } from "sovendus-integration-settings-ui";
+import { SovendusBackendForm } from "sovendus-integration-settings-ui/src/components/backend-form";
+import type { SovendusAppSettings } from "sovendus-integration-types";
+
+declare global {
+  interface Window {
+    sovendusSettings: {
+      settings: SovendusAppSettings;
+      ajaxurl: string;
+      nonce: string;
+    };
+  }
+}
 
 function loadSettingsUi(): void {
-  const currentSettings = sovendusSettings.settings as SovendusAppSettings;
-  const nonce = sovendusSettings.nonce as string;
-  const saveUrl = sovendusSettings.ajaxurl as string;
+  const currentSettings = window.sovendusSettings.settings;
+  const nonce = window.sovendusSettings.nonce;
+  const saveUrl = window.sovendusSettings.ajaxurl;
+  loggerInfo("Loaded settings", currentSettings);
   const containerId = "sovendus-settings-container";
   const container = document.getElementById(containerId);
   if (!container) {
-    console.error(`Container with id ${containerId} not found`);
+    loggerError(`Container with id ${containerId} not found`);
     return;
   }
 
   const handleSettingsUpdate = async (
-    updatedSettings: SovendusAppSettings
+    updatedSettings: SovendusAppSettings,
   ): Promise<SovendusAppSettings> => {
     const formData = new URLSearchParams();
     formData.append("action", "save_sovendus_settings");
@@ -32,23 +44,25 @@ function loadSettingsUi(): void {
       });
 
       if (response.ok) {
+        loggerInfo("Settings saved successfully", updatedSettings);
         return updatedSettings;
       } else {
         const errorText = await response.text();
         throw new Error(errorText);
       }
     } catch (error) {
-      console.error("Save failed:", error);
+      loggerError("Save failed:", error);
       throw error;
     }
   };
 
-  ReactDOM.render(
-    React.createElement(SovendusSettings, {
-      saveSettings: handleSettingsUpdate,
+  const root = createRoot(container);
+  root.render(
+    React.createElement(SovendusBackendForm, {
       currentStoredSettings: currentSettings,
+      saveSettings: handleSettingsUpdate,
+      callSaveOnLoad: false,
     }),
-    container
   );
 }
 

@@ -45,6 +45,13 @@
     "suppressImplicitAnyIndexErrors": false,
     "noStrictGenericChecks": false
   },
-  "include": ["wc-sovendus/**/*.ts", "wc-sovendus/**/*.tsx"],
-  "exclude": ["./node_modules"]
+  "include": [
+    "wc-sovendus/**/*.ts",
+    "wc-sovendus/**/*.tsx",
+    "sov_release.config.ts",
+    "sov_build.config.ts"
+  ],
+  "exclude": [
+    "./node_modules"
+  ]
 }

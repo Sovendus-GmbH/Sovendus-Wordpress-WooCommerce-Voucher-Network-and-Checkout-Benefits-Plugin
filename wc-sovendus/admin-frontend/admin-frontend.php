@@ -2,7 +2,7 @@
 
 defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
 
-require_once plugin_dir_path(file: __FILE__) . '../settings/get-settings.php';
+require_once __DIR__ . '/../settings/get-settings.php';
 
 function enqueue_sovendus_react_scripts($hook)
 {
@@ -18,7 +18,7 @@ function enqueue_sovendus_react_scripts($hook)
         true
     );
     wp_localize_script('frontend_react_loader', 'sovendusSettings', [
-        'settings' => get_sovendus_settings(null),
+        'settings' => get_sovendus_settings(),
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('save_sovendus_settings_nonce'),
     ]);

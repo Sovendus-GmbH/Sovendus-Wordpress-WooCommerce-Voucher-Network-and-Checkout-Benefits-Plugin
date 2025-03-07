@@ -13,7 +13,7 @@ class Sovendus_Admin_Menu
             'manage_woocommerce',
             'wc-sovendus',
             [self::class, 'display_sovendus_page'],
-            plugin_dir_url(__FILE__) . '../sovendus-plugins-commons/sovendus-logo-white.png',
+            plugin_dir_url(__FILE__) . '../dist/sovendus-logo-white.png',
             56
         );
     }

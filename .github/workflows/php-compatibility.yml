@@ -42,11 +42,7 @@ jobs:
       - name: Run PHPStan
         run: |
           echo "<?php
-          require_once '/path/to/wordpress/wp-load.php';
-          if (!defined('SOVENDUS_VERSION')) {
-              define('SOVENDUS_VERSION', '2.0.3');
-          }
-          if (!defined('PLUGIN_NAME')) {
-              define('PLUGIN_NAME', 'woocommerce');
+          require_once '/usr/src/wordpress/wp-load.php';
+          
           }" > phpstan-bootstrap.php
           vendor/bin/phpstan analyse --memory-limit=2G -c phpstan.neon || exit 1

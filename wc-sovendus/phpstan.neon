@@ -7,5 +7,9 @@ parameters:
   bootstrapFiles:
     - phpstan-bootstrap.php
 
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+
   excludePaths:
     - vendor/*

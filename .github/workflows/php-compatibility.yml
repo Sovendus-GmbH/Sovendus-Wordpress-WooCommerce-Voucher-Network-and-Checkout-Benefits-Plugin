@@ -16,6 +16,7 @@ jobs:
     defaults:
       run:
         working-directory: wc-sovendus
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

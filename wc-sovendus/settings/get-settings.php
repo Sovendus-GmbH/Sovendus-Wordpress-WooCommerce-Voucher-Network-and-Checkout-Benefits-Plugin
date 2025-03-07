@@ -3,7 +3,7 @@
 defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
 
 /**
- * @return string
+ * @return array
  */
 function get_sovendus_settings()
 {

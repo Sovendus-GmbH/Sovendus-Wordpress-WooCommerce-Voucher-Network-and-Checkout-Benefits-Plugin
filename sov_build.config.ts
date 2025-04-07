@@ -13,7 +13,7 @@ const buildConfig: BuildConfig = {
     {
       sovOptions: {
         input:
-          "node_modules/sovendus-integration-scripts/src/scripts/vanilla/landing-page/sovendus-page.ts",
+          "node_modules/sovendus-integration-scripts/src/scripts/vanilla/landing-page/sovendus-page-loader.ts",
         output: "wc-sovendus/dist/sovendus-page.js",
         type: "vanilla",
       },
@@ -21,7 +21,7 @@ const buildConfig: BuildConfig = {
     {
       sovOptions: {
         input:
-          "node_modules/sovendus-integration-scripts/src/scripts/vanilla/thankyou-page/thankyou-page.ts",
+          "node_modules/sovendus-integration-scripts/src/scripts/vanilla/thankyou-page/thankyou-page-loader.ts",
         output: "wc-sovendus/dist/thankyou-page.js",
         type: "vanilla",
       },

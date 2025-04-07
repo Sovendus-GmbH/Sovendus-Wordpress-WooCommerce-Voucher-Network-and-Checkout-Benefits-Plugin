@@ -10,9 +10,20 @@ require_once __DIR__ . '/settings/integration-data-helpers.php';
  */
 function wordpress_sovendus_page()
 {
-    $country = "DE";
+    $country = null;
     $locale = get_locale();
-    $language = substr($locale, 0, 2);
+    $language = strtoupper(substr($locale, 0, 2));
+    // Try to get country from WooCommerce if available
+    if (function_exists('WC') && isset(WC()->customer)) {
+        $country = WC()->customer->get_billing_country();
+    }
+    // Try to get country from locale if not already set
+    if (empty($country)) {
+        $locale_parts = explode('_', $locale);
+        if (isset($locale_parts[1])) {
+            $country = $locale_parts[1];
+        }
+    }
 
     $js_file_url = plugins_url('dist/sovendus-page.js', __FILE__);
     wp_register_script('sovendus_page_script', $js_file_url, [], SOVENDUS_VERSION, true);

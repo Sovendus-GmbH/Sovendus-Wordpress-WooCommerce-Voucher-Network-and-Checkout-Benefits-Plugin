@@ -13,16 +13,9 @@ function wordpress_sovendus_thankyou_page($order_id)
 {
     $order = wc_get_order($order_id);
     $country = $order->get_billing_country();
-    // TODO handle session id 
-    $sessionId = ""; // $order->cart_hash; 
     $locale = get_locale();
-    $language = substr($locale, 0, 2);
+    $language = strtoupper(substr($locale, 0, 2));
     $consumerStreetAndNumber = $order->get_billing_address_1();
-    $consumerStreet = null;
-    $consumerStreetNumber = null;
-    if ($consumerStreetAndNumber) {
-        list($consumerStreet, $consumerStreetNumber) = splitStreetAndStreetNumber($consumerStreetAndNumber);
-    }
     $js_file_url = plugins_url('dist/thankyou-page.js', __FILE__);
 
     echo "<div id='sovendus-integration-container'></div>";
@@ -30,12 +23,16 @@ function wordpress_sovendus_thankyou_page($order_id)
     wp_register_script('sovendus_thankyou_script', $js_file_url, [], SOVENDUS_VERSION, true);
     wp_localize_script('sovendus_thankyou_script', 'sovThankyouConfig', [
         'settings' => get_sovendus_settings(),
-        "iframeContainerId" => "sovendus-integration-container",
+        "iframeContainerQuerySelector" => [
+            "selector" => "#sovendus-integration-container",
+            "where" => "none"
+        ],
         "integrationType" => getIntegrationType(PLUGIN_NAME, SOVENDUS_VERSION),
         "orderData" => [
-            "sessionId" => $sessionId,
             "orderId" => $order->get_order_number(),
-            "orderValue" => $order->get_total() - $order->get_shipping_total() - $order->get_total_tax() + $order->get_shipping_tax(),
+            "orderValue" => [
+                "netOrderValue" => $order->get_total() - $order->get_shipping_total() - $order->get_total_tax() + $order->get_shipping_tax()
+            ],
             "orderCurrency" => $order->get_currency(),
             "usedCouponCodes" => $order->get_coupon_codes(),
         ],
@@ -43,8 +40,7 @@ function wordpress_sovendus_thankyou_page($order_id)
             "consumerFirstName" => $order->get_billing_first_name(),
             "consumerLastName" => $order->get_billing_last_name(),
             "consumerEmail" => $order->get_billing_email(),
-            "consumerStreetNumber" => $consumerStreetNumber,
-            "consumerStreet" => $consumerStreet,
+            "consumerStreetWithNumber" => $consumerStreetAndNumber,
             "consumerZipcode" => $order->get_billing_postcode(),
             "consumerCity" => $order->get_billing_city(),
             "consumerCountry" => $country,

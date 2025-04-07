@@ -4,13 +4,9 @@ const releaseConfig: ReleaseConfig = {
   packages: [
     {
       directory: "./",
-      version: "2.1.0",
-      release: true,
-      updateDeps: true,
-      lintAndBuild: true,
-      test: false,
-      versionBumper: {
-        jsVars: [
+      release: {
+        version: "2.0.3",
+        versionBumper: [
           // TODO handle the version string in wc-sovendus.php still needs to be done manually
           {
             filePath: "wc-sovendus/wc-sovendus.php",
@@ -18,13 +14,10 @@ const releaseConfig: ReleaseConfig = {
           },
         ],
       },
-
-      releaseOptions: {
-        foldersToScanAndBumpThisPackage: [
-          // scan the whole dev env folder
-          { folder: "../" },
-        ],
-      },
+      updateDeps: true,
+      lint: true,
+      build: true,
+      test: false,
     },
   ],
 };

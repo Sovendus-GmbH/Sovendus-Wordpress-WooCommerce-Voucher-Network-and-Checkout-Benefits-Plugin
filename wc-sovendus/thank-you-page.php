@@ -15,8 +15,8 @@ function wordpress_sovendus_thankyou_page($order_id)
     $country = $order->get_billing_country();
     // TODO handle session id 
     $sessionId = ""; // $order->cart_hash; 
-    // TODO get the language somewhere
-    $language = null;
+    $locale = get_locale();
+    $language = substr($locale, 0, 2);
     $consumerStreetAndNumber = $order->get_billing_address_1();
     $consumerStreet = null;
     $consumerStreetNumber = null;

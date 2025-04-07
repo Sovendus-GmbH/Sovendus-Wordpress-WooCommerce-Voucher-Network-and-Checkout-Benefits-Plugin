@@ -10,7 +10,7 @@
  * Plugin Name:       Sovendus App
  * Plugin URI:        https://online.sovendus.com/produkte/sovendus-voucher-network/
  * Description:       Official Sovendus App for Wordpress WooCommerce
- * Version:           2.1.0
+ * Version:           2.1.1
  * Author:            Sovendus - Marcus Brandstaetter
  * Author URI:        https://online.sovendus.com/en/contact/contact-corporate-customers/#
  * License:           GPL-3.0
@@ -24,7 +24,7 @@
 defined('ABSPATH') || exit('WordPress Error! Opening plugin file directly');
 
 define('PLUGIN_NAME', 'woocommerce');
-define('SOVENDUS_VERSION', '2.1.0');
+define('SOVENDUS_VERSION', '2.0.3');
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_PATH', plugins_url(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 define('WOOCOMMERCE_SOVENDUS_VOUCHER_NETWORK_CHECKOUT_BENEFITS_PLUGIN_VERSION', SOVENDUS_VERSION);

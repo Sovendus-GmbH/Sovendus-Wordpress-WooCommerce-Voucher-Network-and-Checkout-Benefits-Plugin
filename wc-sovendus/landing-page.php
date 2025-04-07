@@ -10,8 +10,9 @@ require_once __DIR__ . '/settings/integration-data-helpers.php';
  */
 function wordpress_sovendus_page()
 {
-    $country = null;
-    $language = null;
+    $country = "DE";
+    $locale = get_locale();
+    $language = substr($locale, 0, 2);
 
     $js_file_url = plugins_url('dist/sovendus-page.js', __FILE__);
     wp_register_script('sovendus_page_script', $js_file_url, [], SOVENDUS_VERSION, true);

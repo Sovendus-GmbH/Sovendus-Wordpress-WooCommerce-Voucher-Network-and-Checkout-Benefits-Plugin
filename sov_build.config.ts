@@ -4,21 +4,27 @@ const buildConfig: BuildConfig = {
   foldersToClean: ["wc-sovendus/dist"],
   filesToCompile: [
     {
-      input: "wc-sovendus/admin-frontend/frontend_react_loader.ts",
-      output: "wc-sovendus/dist/frontend_react_loader.js",
-      options: { type: "react-tailwind" },
+      sovOptions: {
+        input: "wc-sovendus/admin-frontend/frontend_react_loader.ts",
+        output: "wc-sovendus/dist/frontend_react_loader.js",
+        type: "react-tailwind",
+      },
     },
     {
-      input:
-        "node_modules/sovendus-integration-scripts/src/scripts/landing-page/sovendus-page.ts",
-      output: "wc-sovendus/dist/sovendus-page.js",
-      options: { type: "vanilla" },
+      sovOptions: {
+        input:
+          "node_modules/sovendus-integration-scripts/src/scripts/vanilla/landing-page/sovendus-page.ts",
+        output: "wc-sovendus/dist/sovendus-page.js",
+        type: "vanilla",
+      },
     },
     {
-      input:
-        "node_modules/sovendus-integration-scripts/src/scripts/thankyou-page/thankyou-page.ts",
-      output: "wc-sovendus/dist/thankyou-page.js",
-      options: { type: "vanilla" },
+      sovOptions: {
+        input:
+          "node_modules/sovendus-integration-scripts/src/scripts/vanilla/thankyou-page/thankyou-page.ts",
+        output: "wc-sovendus/dist/thankyou-page.js",
+        type: "vanilla",
+      },
     },
   ],
   filesOrFoldersToCopy: [

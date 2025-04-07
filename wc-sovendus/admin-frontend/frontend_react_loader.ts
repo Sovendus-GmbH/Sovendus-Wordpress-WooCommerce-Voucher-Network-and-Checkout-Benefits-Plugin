@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { loggerError, loggerInfo } from "sovendus-integration-settings-ui";
-import { SovendusBackendForm } from "sovendus-integration-settings-ui/src/components/backend-form";
+import { SovendusBackendForm } from "sovendus-integration-settings-ui";
 import type { SovendusAppSettings } from "sovendus-integration-types";
 
 declare global {
